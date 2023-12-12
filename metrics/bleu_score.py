@@ -3,8 +3,7 @@ import math
 class PrecisionNGram:
   @staticmethod
   def normalize(sentence):
-    sentence = sentence.lower().split()
-    return sentence
+    return sentence.lower().split()
 
   @staticmethod
   def calc_score(predicted_count, target_count):
@@ -18,15 +17,15 @@ class PrecisionNGram:
     target = self.normalize(target)
     predicted = self.normalize(predicted)
 
-    predicted_count = {}
-    for idx in range(0, len(predicted) - (ngram - 1)):
-      words = ' '.join(predicted[idx : idx + ngram])
-      predicted_count[words] = predicted_count.get(words, 0) + 1
+    def _fill(sentence):
+      word2count = {}
+      for idx in range(0, len(sentence) - (ngram - 1)):
+        words = ' '.join(sentence[idx : idx + ngram])
+        word2count[words] = word2count.get(words, 0) + 1
+      return word2count
 
-    target_count = {}
-    for idx in range(0, len(target) - (ngram - 1)):
-      words = ' '.join(target[idx : idx + ngram])
-      target_count[words] = target_count.get(words, 0) + 1
+    predicted_count = _fill(predicted)
+    target_count = _fill(target)
 
     return self.calc_score(predicted_count, target_count)
 
@@ -43,13 +42,13 @@ class BLEUScore:
     brevity_penalty = min(1, math.exp(1 - (target_len/predicted_len)))
     score = precision * brevity_penalty
     return score
-    
+ 
 if __name__ == '__main__':
   target = "The guard arrived late because it was raining"
   predicted = "The guard arrived late because of the rain"
 
-  target = "The NASA Opportunity rover is battling a massive dust storm on Mars ."
-  predicted = "The Opportunity rover is combating a big sandstorm on Mars ."
+  # target = "The NASA Opportunity rover is battling a massive dust storm on Mars ."
+  # predicted = "The Opportunity rover is combating a big sandstorm on Mars ."
   # predicted = "A NASA rover is fighting a massive storm on Mars ."
 
   score = BLEUScore.compute(target, predicted)
