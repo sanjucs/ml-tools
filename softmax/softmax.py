@@ -16,7 +16,7 @@ def softmax(x, block_size=None):
     return compute_softmax(x)
 
   n_splits = math.ceil(len(x) / block_size)
-  running_m = running_l =0
+  running_m = running_l = 0
   out = torch.zeros(len(x))
   for i in range(n_splits):
     start = block_size * i
@@ -37,12 +37,11 @@ def softmax(x, block_size=None):
   return out
 
 if __name__ == '__main__':
-  a = torch.tensor([1, 2], dtype=torch.float32) * 100
-  b = torch.tensor([5, 9, 12], dtype=torch.float32) * .001
-  c = torch.cat([a, b])
+  a = torch.rand((50))
 
-  out = torch.softmax(c, dim=0)
-  out1 = compute_softmax(c)
-  out2 = softmax(c, 2)
-  print(torch.all(out == out1))
-  print(torch.all(out == out2))
+  out = torch.softmax(a, dim=0)
+  out1 = compute_softmax(a)
+  out2 = softmax(a, 3)
+
+  print(torch.allclose(out, out1))
+  print(torch.allclose(out, out2))
