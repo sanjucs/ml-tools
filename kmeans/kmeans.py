@@ -18,7 +18,7 @@ class KMEANS:
     plt.title('K means after {0:d} steps'.format(self.step))
     plt.pause(1)
 
-  def update_mean(self):
+  def update_centroid(self):
     distance = 0
     for i in range(len(self.clusters)):
       new_mean = torch.mean(torch.stack(self.clusters[i]), dim=0)
@@ -44,7 +44,7 @@ class KMEANS:
       cluster_idx = torch.argmin(self.l2_norm(x))
       self.clusters[cluster_idx].append(x)
     self.step += 1
-    self.update_mean()
+    self.update_centroid()
     self.plot()
   
   def fit(self, X):
@@ -63,4 +63,3 @@ if __name__ == '__main__':
   kmeans = KMEANS(11)
   X = torch.randn(1000, 2)
   kmeans.fit(X)
-  print(len(kmeans.centroid))

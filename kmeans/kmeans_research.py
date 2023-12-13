@@ -17,7 +17,7 @@ class KMEANS:
         loss += torch.norm(self.centroid[i] - new_mean)
         self.centroid[i] = new_mean
     loss = loss / len(self.centroid)
-    print(loss)
+
     if loss < self.threshold:
       print("Stop")
       import matplotlib.pyplot as plt
