@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import torch
 
-class KMEANS:
+class Kmeans:
   def __init__(self, k, criterion='L2', threshold=1e-3):
     self.k = k
     self.criterion = criterion
@@ -25,6 +25,8 @@ class KMEANS:
 
       if self.criterion == 'L2':
         distance += torch.norm(self.centroid[i] - new_mean)
+      else:
+        raise NotImplementedError
 
       self.centroid[i] = new_mean
     distance = distance / len(self.centroid)
@@ -35,31 +37,29 @@ class KMEANS:
   def init_clusters(self):
     self.clusters = [[] for _ in range(self.k)]
 
-  def l2_norm(self, x):
+  def get_cluster_distances(self, x):
     return torch.norm(self.centroid - x, dim=1)
 
   def update(self, data):
     self.init_clusters()
     for x in data:
-      cluster_idx = torch.argmin(self.l2_norm(x))
+      cluster_idx = torch.argmin(self.get_cluster_distances(x))
       self.clusters[cluster_idx].append(x)
     self.step += 1
     self.update_centroid()
     self.plot()
   
   def fit(self, X):
-    random_indices = torch.randint(0, len(X), (self.k, ))
-    unique_indices = torch.unique(random_indices)
-    
-    assert len(random_indices) == len(unique_indices), "Repeated centriod points {0:}".format(random_indices)
+    assert self.k < len(X), 'k more than number of unique data points'
+    unique_indices = torch.randperm(len(X))[:self.k]
+    self.centroid = X[unique_indices]
 
-    self.centroid = X[random_indices]
     while self.is_training:
       self.update(X)
 
     self.plot()
 
 if __name__ == '__main__':
-  kmeans = KMEANS(11)
-  X = torch.randn(1000, 2)
+  kmeans = Kmeans(10)
+  X = torch.randn(10, 2)
   kmeans.fit(X)

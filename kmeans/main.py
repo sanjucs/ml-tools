@@ -1,7 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
 
-from kmeans import KMEANS
+from kmeans import Kmeans
 
 NUM_SAMPLES_PER_GAUSSIAN = 1000
 NUM_GAUSSIAN = 3
@@ -32,7 +32,7 @@ g2 = generate_samples(mean[2], covariance_diag[2])
 X = torch.cat((g0, g1, g2))
 X = X[torch.randperm(len(X))]
 
-kmeans = KMEANS(11)
+kmeans = Kmeans(11)
 cluster_X = kmeans.fit(X)
 
 plt.subplot(1, 2, 1)

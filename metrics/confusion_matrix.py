@@ -4,15 +4,16 @@ import matplotlib.pyplot as plt
 class ConfusionMatrix:
 
   @staticmethod
-  def calculate_metric(confusion_matrix):
+  def calculate_metrics(confusion_matrix):
     correct = torch.diag(confusion_matrix)
     col_sum = torch.sum(confusion_matrix, dim=0)
     row_sum = torch.sum(confusion_matrix, dim=1)
     precision = correct / col_sum
     recall = correct / row_sum
     f1score = 2 * precision * recall / (precision + recall)
-    accuracy = torch.mean(recall)
-    result = {'confusion_matrix': confusion_matrix, 'precision': precision, 'recall': recall, 'f1score': f1score, 'accuracy': accuracy}
+    accuracy = torch.mean(correct) / torch.mean(confusion_matrix)
+    balanced_accuracy = torch.mean(recall)
+    result = {'confusion_matrix': confusion_matrix, 'precision': precision, 'recall': recall, 'f1score': f1score, 'accuracy': accuracy, 'balanced_accuracy': balanced_accuracy}
     return result
 
   def compute(self, target, predicted):
@@ -21,7 +22,7 @@ class ConfusionMatrix:
     for x, y in zip(target, predicted):
       confusion_matrix[x, y] += 1
 
-    return self.calculate_metric(confusion_matrix)
+    return self.calculate_metrics(confusion_matrix)
 
 if __name__ == '__main__':
   torch.manual_seed(0)
