@@ -12,10 +12,8 @@ def compute_softmax(x, dim, is_partial=False):
     return x_exp / x_exp_sum
  
 def softmax(x, dim, block_size=None):
-  if block_size == None:
+  if block_size == None or block_size > x.shape[dim]:
     return compute_softmax(x, dim)
-  if block_size > len(x):
-    raise NotImplementedError
 
   n_splits = math.ceil(x.shape[dim] / block_size)
   running_sum = running_max = None
@@ -32,10 +30,10 @@ def softmax(x, dim, block_size=None):
       running_sum = torch.zeros_like(block_max)
 
     global_max = torch.max(torch.stack([block_max, running_max]), dim=0)[0]
-
     sum_prev = running_sum * torch.exp(running_max - global_max)
-    running_out = running_out * sum_prev
     sum_curr = block_sum * torch.exp(block_max - global_max)
+
+    running_out = running_out * sum_prev
     running_out = running_out.transpose(0, dim)
     running_out[start:end, :, :] = (block_out * sum_curr).transpose(0, dim)
     running_out = running_out.transpose(0, dim)
@@ -46,9 +44,9 @@ def softmax(x, dim, block_size=None):
   return running_out
 
 if __name__ == '__main__':
-  a = torch.rand((200, 100, 5))
+  a = torch.rand((200, 100, 20))
 
-  dim = 2
+  dim = 1
   running_out = torch.softmax(a, dim=dim)
   out1 = compute_softmax(a, dim)
   print(torch.allclose(running_out, out1))
