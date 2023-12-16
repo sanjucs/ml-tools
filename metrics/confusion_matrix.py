@@ -11,7 +11,7 @@ class ConfusionMatrix:
     precision = correct / col_sum
     recall = correct / row_sum
     f1score = 2 * precision * recall / (precision + recall)
-    accuracy = torch.mean(correct) / torch.mean(confusion_matrix)
+    accuracy = torch.sum(correct) / torch.sum(confusion_matrix)
     balanced_accuracy = torch.mean(recall)
     result = {'confusion_matrix': confusion_matrix, 'precision': precision, 'recall': recall, 'f1score': f1score, 'accuracy': accuracy, 'balanced_accuracy': balanced_accuracy}
     return result

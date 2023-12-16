@@ -35,7 +35,7 @@ def softmax(x, dim, block_size=None):
 
     running_out = running_out * sum_prev
     running_out = running_out.transpose(0, dim)
-    running_out[start:end, :, :] = (block_out * sum_curr).transpose(0, dim)
+    running_out[start:end, ...] = (block_out * sum_curr).transpose(0, dim)
     running_out = running_out.transpose(0, dim)
 
     running_sum = sum_prev + sum_curr
