@@ -8,14 +8,14 @@
 * Issues with DataParallel
 	* Replicates model in every forward pass.
 	* single process - multi threaded parallelism and suffers from GIL
-- [ ] What is the use of DataPallel in single device?
-- [ ] On a single card, does it get same set of input for every iteration?
+- [ ] What is the use of DataPallel in a single device?
+- [ ] On a single card, does it get the same set of input for every iteration?
 
 # DistributedDataParallel
-* Model replicated on every process and each process are fed with different set of inputs. DDP takes care of gradient communication/synchronization across the processes overlaps it with gradient computation.
+* Model replicated on every process and each process is fed with a different set of inputs. DDP takes care of gradient communication/synchronization across the processes overlaps it with gradient computation.
 * Model broadcast at DDP construction time instead of every forward pass.
 * Steps involved
-	* Pre-requisite - DDP relies on Processgroup. So application must create ProcessGroup before initailizing DDP
+	* Prerequisite - DDP relies on Processgroup. So the application must create a ProcessGroup before initializing DDP
 	* Construction
 		* Broadcast state-dict from rank:0 for all other processes.
 		* Each DDP process creates its own Reducer which
@@ -23,9 +23,9 @@
 			* Registers autograd hook per parameter.
 	* Forward Pass - DDP takes the input, pass to the local model and run the local model.
 	* Backward Pass
-		* When one gradient is ready, correspnding hook will be triggerred and mark as ready for reduction.
+		* When one gradient is ready, corresponding hook will be triggered and mark as ready for reduction.
 		* Once all the gradients in a buckets are ready for reduction, the Reducer will call allreduce on the bucket.
-	* Optimizer step - Since allreduce synchronizes params across the processes, optmizer step is equivalent to optimizing local model.
+	* Optimizer step - Since allreduce synchronizes params across the processes, optimizer step is equivalent to optimizing local model.
 
 # Reference
 
