@@ -3,8 +3,6 @@ import torch
 import torch.distributed as dist
 import torch.multiprocessing as mp
 
-from torch.nn.parallel import DistributedDataParallel as DDP
-
 batch_size = 30
 num_samples = 125
 
@@ -43,8 +41,6 @@ def train(rank, world_size):
   setup(rank, world_size)
 
   model = Net(5, 4, 2)
-  model = DDP(model)
-
   mse_loss = torch.nn.MSELoss()
   optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 
@@ -59,6 +55,10 @@ def train(rank, world_size):
     print(f'[RANK:{rank}] input_size::{X.shape}, output_size::{y.shape}), input_sum::{torch.sum(X):.2f}, output_sum::v{torch.sum(out):.2f}')
     loss = mse_loss(out, y)
     loss.backward()
+    # average parameter gradients across the processes
+    for param in model.parameters():
+      dist.all_reduce(param.grad.data, op=dist.ReduceOp.SUM)
+      param.grad.data /= dist.get_world_size()
     optimizer.step()
 
   cleanup()

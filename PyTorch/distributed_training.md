@@ -63,9 +63,25 @@
 	```python
 	sampler = torch.utils.data.DistributedSampler(dataset, num_replicas=world_size, shuffle=True)
 	dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=sampler)
-
 	```
+	* When multiple processes are used in training, user needs to explicitily call Collectives to synchronize the parameter gradients. eg: [example_allreduce.py](/PyTorch/example_allreduce.py)
+	```python
+	# average parameter gradients across the processes
+	for param in model.parameters():
+		dist.all_reduce(param.grad.data, op=dist.ReduceOp.SUM)
+		param.grad.data /= dist.get_world_size()
+	```
+## Collectives
+Collectives communicate across all processes in a group. There are total seven collectives implented in PyTorch:
+* dist.broadcast(tensor, src, group): Copies tensor from src to all other processes.
+* dist.reduce(tensor, dst, op, group): Applies op to every tensor and stores the result in dst.
+* dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
+* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup>  tensor scatter_list[i] to the i<sup> th</sup>  process.
+* dist.gather(tensor, gather_list, dst, group): Copies tensor from all processes in dst.
+* dist.all_gather(tensor_list, tensor, group): Copies tensor from all processes to tensor_list on all processes.
+* dist.barrier(group): Blocks all processes in group until each one has entered this function.
 
+[example_collective.py](/PyTorch/example_collective.py) shows an example with PyTorch collectives
 
 ## Reference
 
