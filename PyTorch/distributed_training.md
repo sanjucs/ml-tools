@@ -7,9 +7,10 @@
 	* scatter
 	* gather
 	* parallel_apply
-* Issues with DataParallel
+* Limitations of DataParallel
 	* Replicates model in every forward pass.
-	* single process - multi threaded parallelism and suffers from GIL
+	* single process - multi threaded parallelism and suffers from GIL contention.
+	* Ovehead head due to scatter and gather operations.
 
 ## DistributedDataParallel
 * Model replicated on every process and each process is fed with a different set of inputs. DDP takes care of gradient communication/synchronization across the processes overlaps it with gradient computation.
@@ -34,37 +35,15 @@
 
 ### DataParallel
 * https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html
-* https://pytorch.org/tutorials/beginner/former_torchies/parallelism_tutorial.html?highlight=dataparallel#
+* https://pytorch.org/tutorials/beginner/former_torchies/parallelism_tutorial.html
 * https://pytorch.org/tutorials/beginner/blitz/data_parallel_tutorial.html
 * https://pytorch.org/docs/stable/notes/faq.html#pack-rnn-unpack-with-data-parallelism
 
 ### DistributedDataParallel
+* https://pytorch.org/docs/stable/notes/ddp.html
+
 
 ## Doubts
 - [ ] What is the use of DataPallel in a single device?
-- [ ] On a single card, does it get the same set of input for every iteration?
-- [ ] Processgroup
-
-<!-- # DistributedDataParallel
-- [ ] https://pytorch.org/docs/stable/distributed.html#torch.distributed.init_process_group
-- [ ] https://pytorch.org/tutorials/beginner/blitz/data_parallel_tutorial.html
-- [ ] https://www.vldb.org/pvldb/vol13/p3005-li.pdf
-- [ ] https://pytorch.org/docs/stable/notes/ddp.html
-- [ ] https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
-- [ ] https://pytorch.org/tutorials/intermediate/model_parallel_tutorial.html
-- [ ] https://github.com/pytorch/examples/blob/main/distributed/ddp/README.md
-- [ ] https://pytorch.org/tutorials/recipes/zero_redundancy_optimizer.html
-- [ ] https://pytorch.org/docs/stable/distributed.optim.html
-- [ ] https://pytorch.org/tutorials/advanced/generic_join.html
-- [ ] https://pytorch.org/docs/stable/distributed.elastic.html
-- [ ] https://medium.com/codex/a-comprehensive-tutorial-to-pytorch-distributeddataparallel-1f4b42bb1b51
-
-FSDP
-- [https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html "https://pytorch.org/tutorials/intermediate/fsdp_tutorial.html")
-- [https://pytorch.org/tutorials/intermediate/FSDP_adavnced_tutorial.html?highlight=fsdp](https://pytorch.org/tutorials/intermediate/FSDP_adavnced_tutorial.html?highlight=fsdp "https://pytorch.org/tutorials/intermediate/fsdp_adavnced_tutorial.html?highlight=fsdp")
-- [https://pytorch.org/blog/large-scale-training-hugging-face/](https://pytorch.org/blog/large-scale-training-hugging-face/ "https://pytorch.org/blog/large-scale-training-hugging-face/")
-- [https://openmmlab.medium.com/its-2023-is-pytorch-s-fsdp-the-best-choice-for-training-large-models-fe8d2848832f](https://openmmlab.medium.com/its-2023-is-pytorch-s-fsdp-the-best-choice-for-training-large-models-fe8d2848832f "https://openmmlab.medium.com/its-2023-is-pytorch-s-fsdp-the-best-choice-for-training-large-models-fe8d2848832f")
-- [https://huggingface.co/docs/accelerate/usage_guides/fsdp](https://huggingface.co/docs/accelerate/usage_guides/fsdp "https://huggingface.co/docs/accelerate/usage_guides/fsdp"
-- [https://pytorch.org/docs/stable/fsdp.html](https://pytorch.org/docs/stable/fsdp.html "https://pytorch.org/docs/stable/fsdp.html")
-
- -->
+- [ ] On a single card, does it get the same set of inputs for every iteration?
+- [ ] Processgroup - Gloo, NCCL, MPI
