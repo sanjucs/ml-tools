@@ -45,15 +45,15 @@ def train(rank, world_size):
   mse_loss = torch.nn.MSELoss()
   optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 
-  dataset = RandomDataset(1000, 5, 2)
+  dataset = RandomDataset(125, 5, 2)
   sampler = torch.utils.data.DistributedSampler(dataset, num_replicas=world_size, shuffle=True)
   dataloader = torch.utils.data.DataLoader(dataset, batch_size=30, sampler=sampler)
 
   for item in dataloader:
     optimizer.zero_grad()
     X, y = item['X'], item['y']
-    if rank == 0:
-      print(f'[RANK:{rank}] input size::{X.shape}, output size::{y.shape}')
+    # if rank == 0:
+    print(f'[RANK:{rank}] input size::{X.shape}, output size::{y.shape}')
     out = model(X)
     loss = mse_loss(out, y)
     loss.backward()
