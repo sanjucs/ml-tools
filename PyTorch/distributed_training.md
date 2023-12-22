@@ -38,12 +38,12 @@
 	* Construct DDP module
 	```python
 	from torch.nn.parallel import DistributedDataParallel as DDP
-  model = DDP(model)
+	model = DDP(model)
 	```
 	* Divide inputs and outputs across the processs
 	```python
 	sampler = torch.utils.data.DistributedSampler(dataset, num_replicas=world_size, shuffle=True)
-  dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=sampler)
+	dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=sampler)
 
 	```
 
