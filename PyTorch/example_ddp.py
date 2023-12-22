@@ -5,14 +5,6 @@ import torch.multiprocessing as mp
 
 from torch.nn.parallel import DistributedDataParallel as DDP
 
-def setup(rank, world_size):
-  os.environ['MASTER_ADDR'] = 'localhost'
-  os.environ['MASTER_PORT'] = '12355'
-  dist.init_process_group('gloo', rank=rank, world_size=world_size)
-
-def cleanup():
-  dist.destroy_process_group()
-
 class Net(torch.nn.Module):
   def __init__(self, input_dim, hidden_dim, output_dim):
     super(Net, self).__init__()
@@ -34,6 +26,14 @@ class RandomDataset(torch.utils.data.Dataset):
 
   def __len__(self):
     return len(self.data)
+
+def setup(rank, world_size):
+  os.environ['MASTER_ADDR'] = 'localhost'
+  os.environ['MASTER_PORT'] = '12355'
+  dist.init_process_group('gloo', rank=rank, world_size=world_size)
+
+def cleanup():
+  dist.destroy_process_group()
 
 def train(rank, world_size):
   print(f'[RANK:{rank}] Setting up rank:{rank}')
@@ -64,6 +64,15 @@ def train(rank, world_size):
 def main():
   world_size = 4
   mp.spawn(train, args=(world_size,), nprocs=world_size, join=True)
+
+  # processes = []
+  # for rank in range(world_size):
+  #   p = mp.Process(target=train, args=(rank, world_size,))
+  #   p.start()
+  #   processes.append(p)
+
+  # for p in processes:
+  #   p.join()
 
 if __name__ == '__main__':
   main()

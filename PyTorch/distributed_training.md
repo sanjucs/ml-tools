@@ -30,6 +30,25 @@
 * Paramters are never broadcasted across the processes. But buffers like batchnorm stats are broadcasted rank 0 prcoess to all other processes in every iterations.
 
 * [example_ddp.py](/PyTorch/example_ddp.py) shows an example usage of DDP with gloo backend
+	* setup distributed env
+		* using mp.Process
+		```python
+		import torch.multiprocessing as mp
+		processes = []
+		for rank in range(world_size):
+			p = mp.Process(target=train, args=(rank, world_size,))
+			p.start()
+			processes.append(p)
+
+		for p in processes:
+			p.join()
+		```
+		* using mp.spawn
+		```python
+		import torch.multiprocessing as mp
+		mp.spawn(train, args=(world_size,), nprocs=world_size, join=True)
+		```
+
 	* Initialize distributed process group
 	```python
 	import torch.distributed as dist
@@ -68,4 +87,10 @@
 - [ ] On a single card, does it get the same set of inputs for every iteration?
 - [ ] Processgroup - Gloo, NCCL, MPI
 - [ ] How to enable uneven inputs across the processes?
-- [ ] Usage: register_comm_hook, no_sync, join_hook, join
+	* example 1:
+		num_data_samples = 999
+		world_size = 4
+		batch_size = 30
+	* How do we handle, if only a few of the processes require additional iteration?
+- [ ] Usage: register_comm_hook, no_sync, join_hook, join, gradient_as_bucket_view, static_graph
+- [ ] torch.mp.spawn
