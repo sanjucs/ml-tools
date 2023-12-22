@@ -27,7 +27,7 @@
 		* When one gradient is ready, corresponding hook will be triggered and mark as ready for reduction.
 		* Once all the gradients in a buckets are ready for reduction, the Reducer will call allreduce on the bucket.
 	* Optimizer step - Since allreduce synchronizes params across the processes, optimizer step is equivalent to optimizing local model.
-* Paramters are never broadcasted across the processes. But buffers like batchnorm stats are broadcasted rank 0 prcoess to all other processes in every iterations.
+* Parameters are never broadcasted across the processes. But buffers like batchnorm stats are broadcasted rank 0 prcoess to all other processes in every iteration.
 
 * [example_ddp.py](/PyTorch/example_ddp.py) shows an example usage of DDP with gloo backend
 	* setup distributed env
