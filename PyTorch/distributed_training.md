@@ -25,7 +25,7 @@
 	* Forward Pass - DDP takes the input, pass to the local model and run the local model.
 	* Backward Pass
 		* When one gradient is ready, corresponding hook will be triggered and mark as ready for reduction.
-		* Once all the gradients in a buckets are ready for reduction, the Reducer will call allreduce on the bucket.
+		* Once all the gradients in a bucket are ready for reduction, the Reducer will call allreduce on the bucket.
 	* Optimizer step - Since allreduce synchronizes params across the processes, optimizer step is equivalent to optimizing local model.
 * Parameters are never broadcasted across the processes. But buffers like batchnorm stats are broadcasted rank 0 prcoess to all other processes in every iteration.
 
@@ -97,16 +97,5 @@ Collectives communicate across all processes in a group. There are total seven c
 ### DistributedDataParallel
 * https://pytorch.org/docs/stable/notes/ddp.html
 * https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html
-
-## Doubts
-- [ ] What is the use of DataPallel in a single device?
-- [ ] On a single card, does it get the same set of inputs for every iteration?
-- [ ] Processgroup - Gloo, NCCL, MPI
-- [ ] How to enable uneven inputs across the processes?
-	* example 1:
-		num_data_samples = 999
-		world_size = 4
-		batch_size = 30
-	* How do we handle, if only a few of the processes require additional iteration?
-- [ ] Usage: register_comm_hook, no_sync, join_hook, join, gradient_as_bucket_view, static_graph
-- [ ] torch.mp.spawn
+* https://pytorch.org/tutorials/intermediate/dist_tuto.html
+* https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
