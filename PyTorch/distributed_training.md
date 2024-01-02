@@ -99,13 +99,8 @@ FSDP shards model's parameters, gradients and optimizer states across the worker
 		* Run backward computation.
 		* Run reduce-scatter to synchronizer gradients.
 		* Release parameter shards of other ranks.
-	* Optimizer step #FIXME
-
-```
-from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
-from torch.distributed.fsdp.fully_sharded_data_parallel import CPUOffload, BackwardPrefetch
-from torch.distributed.fsdp.wrap import size_based_auto_wrap_policy, enable_wrap, wrap
-```
+	* Optimizer step
+		* Each rank optimizes it's own sharded parameters.
 
 * case 1:
 	```
