@@ -22,8 +22,8 @@
 		* Each DDP process creates its own Reducer which
 			* Maps parameter gradients into buckets
 			* Registers autograd hook per parameter.
-	* Forward Pass - DDP takes the input, pass to the local model and run the local model.
-	* Backward Pass
+	* Forward pass - DDP takes the input, pass to the local model and run the local model.
+	* Backward pass
 		* When one gradient is ready, corresponding hook will be triggered and mark as ready for reduction.
 		* Once all the gradients in a bucket are ready for reduction, the Reducer will call allreduce on the bucket.
 	* Optimizer step - Since allreduce synchronizes params across the processes, optimizer step is equivalent to optimizing local model.
@@ -83,6 +83,39 @@ Collectives communicate across all processes in a group. There are total seven c
 
 [example_collective.py](/PyTorch/example_collective.py) shows an example with PyTorch collectives
 
+## Fully Sharded Data Parallel (FSDP)
+
+FSDP shards model's parameters, gradients and optimizer states across the workers and optionally offload the parameters to CPUs. This results less memory requirement on device compared to DDP, but with cost of increaseed communication volume.
+
+* Steps involved
+	* Prerequisite - Initialize prcessgroup.
+	* Construction - Shard model parameters and each rank keeps its own shard.
+	* Forward pass
+		* Run allgather to collect all parameters from all ranks of the particular FSDP unit.
+		* Takes the input on the rank, run the model.
+		* Release parameter shards of other ranks.
+	* Backward pass
+		* Run allgather to collect all parameters from all ranks of the particular FSDP unit.
+		* Run backward computation.
+		* Run reduce-scatter to synchronizer gradients.
+		* Release parameter shards of other ranks.
+	* Optimizer step #FIXME
+
+```
+from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
+from torch.distributed.fsdp.fully_sharded_data_parallel import CPUOffload, BackwardPrefetch
+from torch.distributed.fsdp.wrap import size_based_auto_wrap_policy, enable_wrap, wrap
+```
+
+* case 1:
+	```
+	model = FSDP(model)
+	```
+	* There is only one FSDP instance that wraps entire model.
+	* During forward and backward passes, allgather will collect full parameters, hence there won't be any memory optimization.
+	* Since instance aslo restricts commnunication and computation overlap.
+
+
 ## Reference
 
 ### Distributed
@@ -99,3 +132,9 @@ Collectives communicate across all processes in a group. There are total seven c
 * https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html
 * https://pytorch.org/tutorials/intermediate/dist_tuto.html
 * https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
+
+### FullyShardedDataParallel
+* https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html
+* https://www.youtube.com/watch?v=By_O0k102PY
+* https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/
+* https://openmmlab.medium.com/its-2023-is-pytorch-s-fsdp-the-best-choice-for-training-large-models-fe8d2848832f
