@@ -76,7 +76,7 @@ Collectives communicate across all processes in a group. There are total seven c
 * dist.broadcast(tensor, src, group): Copies tensor from src to all other processes.
 * dist.reduce(tensor, dst, op, group): Applies op to every tensor and stores the result in dst.
 * dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
-* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup>  tensor scatter_list[i] to the i<sup> th</sup>  process.
+* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup>  tensor scatter_list[i] to the i<sup>th</sup>  process.
 * dist.gather(tensor, gather_list, dst, group): Copies tensor from all processes in dst.
 * dist.all_gather(tensor_list, tensor, group): Copies tensor from all processes to tensor_list on all processes.
 * dist.barrier(group): Blocks all processes in group until each one has entered this function.
