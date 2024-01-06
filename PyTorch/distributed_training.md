@@ -85,7 +85,7 @@ Collectives communicate across all processes in a group. There are total seven c
 
 ## Fully Sharded Data Parallel (FSDP)
 
-FSDP shards model's parameters, gradients and optimizer states across the workers and optionally offload the parameters to CPUs. This results in lower memory requirementson device compared to DDP, but with cost of increaseed communication bandwidth requirements
+FSDP shards model's parameters, gradients and optimizer states across the workers and optionally offload the parameters to CPUs. This results in lower memory requirements on device compared to DDP, but with an increase in communication bandwidth requirements.
 
 * Steps involved
 	* Prerequisite - Initialize prcessgroup.
