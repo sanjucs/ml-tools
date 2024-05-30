@@ -7,7 +7,7 @@ Language models are trained with billions of parameters. To utilize the models f
 * LoRA
 
 ## LoRA
-In LorA, all pretrained weights are made non-trainable and a new pair of low-rank matrices are introducd as trainable weights for selected modules.
+In LorA, all pretrained weights are made non-trainable and a new pair of low-rank matrices are introduced as trainable weights for selected modules.
 
 ![Figure 1](/features/assets/lora.png) 
 
@@ -17,9 +17,9 @@ where
 $W_{old}$ = pretrained weight, $A$ and $B$ are LoRA A and B weights respectively.
 
 ### Pros:
-* Since the trainable modules introduced are with lower rank, computations will faster.
+* Since the trainable modules introduced are with lower rank, computations will be faster.
 * Require less storage since we only need to save the new LoRA wrights, while the pretrained weights remain intact.
-* During inference $W_{new}$ can be precomputed using $W_{old}$, $A$ and $B$ which helps kepps the inference latency the same as pretrained model.
+* During inference $W_{new}$ can be precomputed using $W_{old}$, $A$ and $B$ which helps keeps the inference latency the same as pretrained model.
 
 ## Reference
 
