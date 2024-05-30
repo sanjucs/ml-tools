@@ -11,7 +11,7 @@ In LorA, all pretrained weights are made non-trainable and introduces a new pair
 
 ![Figure 1](/features/assets/lora.png) 
 
-$ W_{new} = W_{old} + AB $
+$W_{new} = W_{old} + AB$
 
 where 
 $W_{old}$ = pretrained weight, $A$ and $B$ are LoRA A and B weights respectively.
