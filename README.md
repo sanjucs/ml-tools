@@ -1,11 +1,17 @@
 # ml-tools
 
-* ML-Algorithms
-	- K-means
-* Evaluation metrics
+* [Distributed training](/distributed)
+	- [Data Parallel](/distributed/distributed.md)
+	- [Distributed Data Parallel](/distributed/distributed.md)
+	- [Fully Sharded Data Parallel](/distributed/distributed.md)
+* [Features](/features)
+	- [LoRA](/features/lora/)
+---
+* [Evaluation metrics](/metrics)
 	- Confusion matrix
 	- BLEU score
-* Optimized implementation of ops
+* [ML-Algorithms](/ml-algorithms)
+	- K-means
+* [OP optimizations](/ops/)
 	- softmax
-* PyTorch
-	- Distributed training
+---
