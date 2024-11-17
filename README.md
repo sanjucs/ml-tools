@@ -2,7 +2,7 @@
 
 * [Distributed training](/distributed)
 	- [Data Parallel](/distributed/distributed.md)
-	- [Data Distributed Parallel](/distributed/distributed.md)
+	- [Distributed Data Parallel](/distributed/distributed.md)
 	- [Fully Sharded Data Parallel](/distributed/distributed.md)
 * [Features](/features)
 	- [LoRA](/features/lora/)
