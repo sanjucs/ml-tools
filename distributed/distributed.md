@@ -13,7 +13,7 @@
 	* Ovehead due to scatter and gather operations.
 
 ## DistributedDataParallel
-* Replicates model on every process and each process is fed with a different set of inputs. DDP takes care of gradient communication/synchronization across the processes ane overlaps it with gradient computation.
+* Replicates model on every process and each process is fed with a different set of inputs. DDP takes care of gradient communication/synchronization across the processes and overlaps it with gradient computation.
 * Model broadcast at DDP construction time instead of every forward pass.
 * Steps involved
 	* Prerequisite - DDP relies on Processgroup. So the application must create a ProcessGroup before initializing DDP
@@ -72,11 +72,11 @@
 		param.grad.data /= dist.get_world_size()
 	```
 ## Collectives
-Collectives communicate across all processes in a group. There are total seven collectives implemented in PyTorch:
+Collectives communicate across all processes in a group. There are a total of seven collectives implemented in PyTorch:
 * dist.broadcast(tensor, src, group): Copies tensor from src to all other processes.
 * dist.reduce(tensor, dst, op, group): Applies op to every tensor and stores the result in dst.
 * dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
-* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup>  tensor in the scatter_list to the i<sup>th</sup>  process.
+* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup>  tensor in scatter_list to the i<sup>th</sup>  process.
 * dist.gather(tensor, gather_list, dst, group): Copies tensor from all processes in dst.
 * dist.all_gather(tensor_list, tensor, group): Copies tensor from all processes to tensor_list on all processes.
 * dist.barrier(group): Blocks all processes in group until each one has entered this function.
