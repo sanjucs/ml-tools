@@ -26,7 +26,7 @@
 	* Backward pass
 		* When one gradient is ready, corresponding hook will be triggered and mark as ready for reduction.
 		* Once all the gradients in a bucket are ready for reduction, the Reducer will call allreduce on the bucket.
-	* Optimizer step - Since allreduce synchronizes params across the processes, optimizer step is equivalent to optimizing local model.
+	* Optimizer step - Since allreduce synchronizes gradients across the processes, optimizer step is equivalent to optimizing local model.
 * Parameters are never broadcasted between the processes. But buffers like batchnorm stats are broadcasted rank 0 prcoess to all other processes in every iteration.
 
 * [example_ddp.py](/distributed/examples/example_ddp.py) shows an example usage of DDP with gloo backend
@@ -64,7 +64,7 @@
 	sampler = torch.utils.data.DistributedSampler(dataset, num_replicas=world_size, shuffle=True)
 	dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=sampler)
 	```
-	* When multiple processes are used in training, user needs to explicitily call collectives to synchronize the parameter gradients.
+	* To explicitily call collectives to synchronize the parameter gradients.
 	```python
 	# average parameter gradients across the processes
 	for param in model.parameters():
@@ -74,9 +74,9 @@
 ## Collectives
 Collectives communicate across all processes in a group. There are a total of seven collectives implemented in PyTorch:
 * dist.broadcast(tensor, src, group): Copies tensor from src to all other processes.
-* dist.reduce(tensor, dst, op, group): Applies op to every tensor and stores the result in dst.
+* dist.reduce(tensor, dst, op, group): Applies op to tensor in every processes and stores the result in dst.
 * dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
-* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup>  tensor in scatter_list to the i<sup>th</sup>  process.
+* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup> tensor in scatter_list to the i<sup>th</sup> process.
 * dist.gather(tensor, gather_list, dst, group): Copies tensor from all processes in dst.
 * dist.all_gather(tensor_list, tensor, group): Copies tensor from all processes to tensor_list on all processes.
 * dist.barrier(group): Blocks all processes in group until each one has entered this function.

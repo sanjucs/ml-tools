@@ -3,7 +3,6 @@ import torch
 import torch.multiprocessing as mp
 import torch.distributed as dist
 import torchvision
-from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 
 num_epochs = 1
