@@ -73,11 +73,11 @@
 	```
 ## Collectives
 Collectives communicate across all processes in a group. There are a total of seven collectives implemented in PyTorch:
-* dist.broadcast(tensor, src, group): Copies `tensor` from src to all other processes.
-* dist.reduce(tensor, dst, op, group): Applies op to `tensor` in every process and stores the result in dst.
+* dist.broadcast(tensor, src, group): Copies `tensor` from `src` to all other processes.
+* dist.reduce(tensor, dst, op, group): Applies `op` to `tensor` in every process and stores the result in `dst`.
 * dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
 * dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup> `tensor` in `scatter_list` to the i<sup>th</sup> process.
-* dist.gather(tensor, gather_list, dst, group): Copies `tensor` from all processes in dst.
+* dist.gather(tensor, gather_list, dst, group): Copies `tensor` from all processes in `dst`.
 * dist.all_gather(tensor_list, tensor, group): Copies `tensor` from all processes to `tensor_list` on all processes.
 * dist.barrier(group): Blocks all processes in group until each one has entered this function.
 
