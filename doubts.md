@@ -3,7 +3,7 @@
 ## LLM
 1. Does prefill phase include first token generation?
 2. What is request rate in LLM serving?
-3. Topics -> Prefix-caching, chunked prefill, infligh batching
+3. Topics -> Request rate, max number of tokens, Prefix-caching, chunked prefill, inflight batching
 4. Parallelism -> PP, TP
 
 ## Device
