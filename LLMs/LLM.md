@@ -8,6 +8,13 @@
 	* Generates next output token auto-regressively.
 	* Utilizes the KV-cache created during prompt phase to avoid redundant compuations for subsequent token generations. However this introduces additional memory transfer costs.
 
+## Sampling methods
+Objective: Generate tokens with diversiry and coherence.
+* Greedy apporach - Selecting token with highest probability. Faces degeneration issue (repetitive).
+* Top K - Randomly choose token from K number of with highest probabilites.
+* Top P - Randomly choose token from tokens with cumulative probability greater than p.
+* Repetition penalty
+
 
 ## Performance
 The performance of the LLMs can be evaluated using the following metrics.
