@@ -1,25 +1,18 @@
 # LLM
 
 ## Phases of text generation
-* Prefill phase
-	* Processes all input tokens, creates contexts and generate first output token.
-	* Computationally intensive since the all the inputs are fed to the model at a time.
-* Decode phase
-	* Generates next output token auto-regressively.
-	* Utilizes the KV-cache created during prompt phase to avoid redundant compuations for subsequent token generations. However this introduces additional memory transfer costs.
+There are mainly two phases in text generation: the prefill phase and the decode phase. The prefill phase processes all the input tokens creates contexts, and generates the first output token. This phase is computationally intensive since all the inputs are fed to the model simultaneously. The decode phase generates the next output token auto-regressively. It utilizes the KV cache created during the prompt phase to avoid redundant computations for subsequent token generations. However, this introduces additional memory transfer costs.
 
 ## Sampling methods
-Objective: Generate tokens with diversiry and coherence.
-* Greedy apporach - Selecting token with highest probability. Faces degeneration issue (repetitive).
-* Top K - Randomly choose token from K number of with highest probabilites.
-* Top P - Randomly choose token from tokens with cumulative probability greater than p.
+The objective of the sampling technique is to generate tokens with diversity and coherence. Below are a few of the sampling techniques.
+* Greedy approach - Selecting token with the highest probability. Often faces degeneration issues.
+* Top K - Randomly choose a token from the K number of tokens with the highest probabilities.
+* Top P - Randomly choose the token from tokens with cumulative probability greater than p.
 * Repetition penalty
-
 
 ## Performance
 The performance of the LLMs can be evaluated using the following metrics.
-
-* Throughput: Total number of tokens / Total ineference time
+* Throughput: Total number of tokens / Total inference time
 * TTFT (Time Taken for First Token): Latency measured between the request and first token generated.
 * TPOT (Time Per Output Token)
 
@@ -30,5 +23,5 @@ Parameters affecting performance metrics:
 * Max num of tokens tokens
 * Request rate
 
-Reference
-1. https://blog.squeezebits.com/
+## Reference
+* https://blog.squeezebits.com/
