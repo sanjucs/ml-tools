@@ -16,12 +16,27 @@ The performance of the LLMs can be evaluated using the following metrics.
 * TTFT (Time Taken for First Token): Latency measured between the request and first token generated.
 * TPOT (Time Per Output Token)
 
-Parameters affecting performance metrics:
-* Batch size
-	* Increasing batch size allows more tokens to be processed simultaneously. This results in more compute utilization and reduces TTFT, thus increasing throughput. However, the upper limit of batch size is limited by memory constraints. As batch size increases, kv cache allocations are increased, which might exceed the memory limit and eventually result in preempt techniques like recomputation or swap.
-	* Increasing match size slows-down iteration time in decode phase which results increase in TPOT.
-* Max num of tokens tokens
-* Request rate
+### Parameters affecting performance metrics
+
+#### Scheduling schemes
+The scheuler optimize the batching and it's management with regard to computation and memory constraints. In LLM, there are various scheduling schemes.
+<noformat>
+* Static Request-level scheduling\
+	Batching is done in the order that the requests arrive. When the batch is ready, it begins model execution. If a new request comes in the middle of current execution, it must wait until the existing one is completed.
+* Iteration level\
+	Iteration level is considered as the level at which single token is generated. If one of the requests in the current batch has finished decode phase, new request's prefill phase can be added to the existing batch. However, if the iteration includes both prefill and decode queries, the decode requests must be heavily padded.
+* Packaged batching\
+	Instead of batching dimension, packaged batching appends the requests to the sequence dimention, addressing padding issue.
+* Continuous batching\
+	Continuous batching (in-fligh batching) is a combination of iteration level and packaged batching.
+* Memory aware scheduling\
+	Pre-allocation and On-demand scheduling -	KV caches play a key role in scheduling. If the device memory required for KV cache exceeds the limit, preemptive measures such as recomputation or swap will take place for the least used requests, resulting in a performance decrease. Pre-allocation solves this problem by allocating memory for requests during the initialization phase, but resulting smaller running batch size. As the name implies, on-demand scheduling allocates KV caches during runtime.
+<noformat>
+
+Note: All requests should be padded to match the length of longest sequence in a single batch.
+
+#### Batch size and max num of tokens
+Increasing batch size allows more tokens to be processed simultaneously. This improves compute utilizations in prefill phase and minimizes TTFT, increasing throughput. In contrast, increasing batch size causes the decode phase's iteration time to slow down, resulting in a higher TPOT. Prefill batch size will be limied by max number of tokens.
 
 ## Reference
 * https://blog.squeezebits.com/
