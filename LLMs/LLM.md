@@ -36,7 +36,7 @@ The scheuler optimizes batching and its management with regards to computation a
 Note: All requests should be padded to match the length of longest sequence in a single batch.
 
 #### Batch size and max num of tokens
-Increasing batch size allows more tokens to be processed simultaneously. This improves compute utilizations in prefill phase and minimizes TTFT, increasing throughput. In contrast, increasing batch size causes the decode phase's iteration time to slow down, resulting in a higher TPOT. Prefill batch size will be limit	ed by max number of tokens.
+Increasing batch size allows more tokens to be processed simultaneously. This improves compute utilizations in prefill phase and minimizes TTFT, increasing throughput. In contrast, increasing batch size causes the decode phase's iteration time to slow down, resulting in a higher TPOT. Prefill batch size will be limited by max number of tokens.
 
 ## Reference
 * https://blog.squeezebits.com/
