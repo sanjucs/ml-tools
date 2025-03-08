@@ -1,7 +1,9 @@
 # Activation function
-Activation fuinction introduces non-linearity in neural network which helps it to learn complex patterns. Activation functions should be differentiable or should have minimum number of discontinuities. Commonly used activation functions are listed below. 
+Activation functions introduce non-linearities in neural networks, which helps them learn complex patterns. Activation functions should be differentiable or should have minimum number of discontinuities. Commonly used activation functions are listed below. 
 
-## Sigmoid function
+Activation functions introduce non-linearities in neural networks, which helps them learn complex patterns. Activation functions should be differentiable or should have minimum number of discontinuities. Commonly used activation functions are listed below.
+
+## The sigmoid function
 Sigmoid function $σ(x)$ is defined as $σ(x) = {1 \over 1 + e^{-x}}$
 
 * Output of sigmoid function lies between 0 and 1. Output approaches 0 as x tends to -inf and approaches 1 as x tends to inf.
@@ -18,6 +20,13 @@ $σ^{'}(x) = {1 \over 1 + e^{-x}} * {e^{-x} \over 1 + e^{-x}}$
 $σ^{'}(x) = {1 \over 1 + e^{-x}} * {e^{-x} \over 1 + e^{-x}}$
 
 $σ^{'}(x) = σ(x) * ( 1 - σ(x))$
+
+## The tanh function
+Tanh is a hyperbolic function and is defined as $tanh(x) = {sinh(x) \over conhx(x)}$
+
+$tanh(x) = {sinh(x) \over coshx(x)}$
+
+$tanh(x) = {{e^{x}-e^{-x}} \over {{e^{x} + e^{-x}}}}$
 
 <!-- 
 
