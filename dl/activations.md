@@ -11,22 +11,22 @@ Gradient computation:
 
 $σ(x) = {1 \over 1 + e^{-x}}$
 
-$σ^{'}(x) = {e^{-x} \over (1 + e^{-x})^{2}}$
+$σ\prime(x) = {e^{-x} \over (1 + e^{-x})^{2}}$
 
-$σ^{'}(x) = {1 \over 1 + e^{-x}} * {e^{-x} \over 1 + e^{-x}}$
+$σ\prime(x) = {1 \over 1 + e^{-x}} \cdot {e^{-x} \over 1 + e^{-x}}$
 
-$σ^{'}(x) = {1 \over 1 + e^{-x}} * {e^{-x} \over 1 + e^{-x}}$
+$σ\prime(x) = {1 \over 1 + e^{-x}} \cdot {e^{-x} \over 1 + e^{-x}}$
 
-$σ^{'}(x) = σ(x) * ( 1 - σ(x))$
+$σ\prime(x) = σ(x) \cdot ( 1 - σ(x))$
 
 ## Tanh function
-The tanh is a hyperbolic function and is defined as $tanh(x) = {sinh(x) \over conhx(x)}$
+The tanh function is a hyperbolic function and is defined as $tanh(x) = {sinh(x) \over conhx(x)}$
 
 $tanh(x) = {sinh(x) \over coshx(x)}$
 
 $tanh(x) = {{e^{x}-e^{-x}} \over {{e^{x} + e^{-x}}}}$
 
-$ {{d\over dx} tanh(x)} = {{e^{x}-e^{-x}} \over {{e^{x} + e^{-x}}}}$
+${{d} \over {dx}} tanh(x) = {{e^{x}-e^{-x}} \over {e^{x} + e^{-x}}}$
 
 
 ## The softmax function
