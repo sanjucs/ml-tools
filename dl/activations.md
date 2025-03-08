@@ -26,7 +26,15 @@ $tanh(x) = {sinh(x) \over coshx(x)}$
 
 $tanh(x) = {{e^{x}-e^{-x}} \over {{e^{x} + e^{-x}}}}$
 
-${{d} \over {dx}} tanh(x) = {{e^{x}-e^{-x}} \over {e^{x} + e^{-x}}}$
+${{d \over dx}} tanh(x) = {{e^{x}-e^{-x}} \over {e^{x} + e^{-x}}}$
+
+${{d \over dx}} tanh(x) = {{(e^{x}+e^{-x}) \cdot (e^{x}+e^{-x}) - (e^{x}-e^{-x}) \cdot (e^{x}-e^{-x})} \over {(e^{x} + e^{-x})^2}}$
+
+${{d \over dx}} tanh(x) = {{(e^{x}+e^{-x})^2 - (e^{x}-e^{-x})^2} \over {(e^{x} + e^{-x})^2}}$
+
+${{d \over dx}} tanh(x) = 1 - {\left({(e^{x}-e^{-x}} \over {e^{x} + e^{-x}}\right)^2}$
+
+${{d \over dx}} tanh(x) = 1 - tanh^2(x)$
 
 
 ## The softmax function
