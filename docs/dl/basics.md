@@ -12,7 +12,7 @@
 
 **Q:** What are activation functions in neural networks?
 
-**A:** [activation functions](/dl/activations.md)
+**A:** [Activation functions](/dl/activations.md)
 
 ---
 
@@ -27,5 +27,5 @@
 **Q:** What is the exploding gradient problem in neural networks?
 
 **A:** The exploding gradient problem refers to the phenomenon when gradients w.r.t. loss become extremely large during backpropagation. Solutions to avoid the exploding gradient problem:
-* Regularization of weights help with exploding gradients
+* Normalisation techniques help with exploding gradients
 * Gradient clipping
