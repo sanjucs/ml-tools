@@ -36,6 +36,8 @@ ${{d \over dx}} tanh(x) = 1 - {\left({(e^{x}-e^{-x}} \over {e^{x} + e^{-x}}\righ
 
 ${{d \over dx}} tanh(x) = 1 - tanh^2(x)$
 
+${{d \over dx}} tanh(x) = sech^2(x)$
+
 
 ## The softmax function
 $softmax(x_i) = {e^{-x_i} \over \sum_{k}e^{-x_k}}$
