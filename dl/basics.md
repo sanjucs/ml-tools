@@ -26,6 +26,6 @@
 
 **Q:** What is exploding gradient problem in neural networks?
 
-**A:** The exploding gradient problem refers to the phenomenon when gradients w.r.t loss becomes extremely large during backpropagation. Solutions to avoid the exploding gradient problem:
+**A:** The exploding gradient problem refers to the phenomenon when gradients w.r.t. loss become extremely large during backpropagation. Solutions to avoid the exploding gradient problem:
 * Weight normalization techniques.
 * Gradient clipping
