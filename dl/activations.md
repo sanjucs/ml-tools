@@ -26,7 +26,7 @@ $tanh(x) = {sinh(x) \over coshx(x)}$
 
 $tanh(x) = {{e^{x}-e^{-x}} \over {{e^{x} + e^{-x}}}}$
 
-${{d \over dx}} tanh(x) = {{e^{x}-e^{-x}} \over {e^{x} + e^{-x}}}$
+${{d \over dx}} tanh(x) = {{d \over dx}} {{e^{x}-e^{-x}} \over {e^{x} + e^{-x}}}$
 
 ${{d \over dx}} tanh(x) = {{(e^{x}+e^{-x}) \cdot (e^{x}+e^{-x}) - (e^{x}-e^{-x}) \cdot (e^{x}-e^{-x})} \over {(e^{x} + e^{-x})^2}}$
 
