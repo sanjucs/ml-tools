@@ -12,3 +12,7 @@
 **Q:** What are activation functions in neural networks?
 
 **A:** [activation functions](/dl/activations.md)
+
+---
+**Q:** What is vanishing gradient problem in neural networks?
+**A:** The vanishing gradient problem refers to the phenomenon of diminishing gradients during backpropagation. The issue is prominent in models with a large number of hidden layers, where computing gradients of the initial layers necessitates numerous multiplications. The sigmoid and tanh functions are affected by the vanishing gradient issue since their derivatives lie in the ranges of [0, 0.25] and [0, 1], respectively.
