@@ -1,4 +1,4 @@
-# Activation function
+# Activation functions
 Activation functions introduce non-linearities in neural networks, which helps them learn complex patterns. Activation functions should be differentiable or should have minimum number of discontinuities. Commonly used activation functions are listed below. 
 
 ## Sigmoid
@@ -40,11 +40,11 @@ ${{d \over dx}} tanh(x) = sech^2(x)$
 
 
 ## Softmax
-$softmax(x_i) = {e^{-x_i} \over \sum_{k}e^{-x_k}}$
+The softmax function is defined as $softmax(x_i) = {e^{-x_i} \over \sum_{k}e^{-x_k}}$
 
 ## ReLU
 
 Rectified Linear Unit is defined as $ReLU(x) = max(0, x)$
 
 ## SiLU
-Sigmod Linear Unit is defined as $SiLU(x) = x * sigmoid(x)$
+Sigmod Linear Unit is defined as $SiLU(x) = x \cdot sigmoid(x)$
