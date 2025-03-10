@@ -1,3 +1,5 @@
+# Optimized softmax calculation suggested in the flash attention paper https://arxiv.org/pdf/2205.14135
+
 import torch
 import math
 
