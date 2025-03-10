@@ -45,10 +45,10 @@ Batch normalization generally used for CNN and FC models and not preferred in LL
 The layer norm calculates the normalization statistics for each data sample in the layer separately. The layer normalization method doesn't rely on mini-batch size and doesn't necessitate the calculations of running statistics for inference.
 
 ## Instance normalization
-The instance norm is a normalization process done on each feature and each data sample in the mini-batch.
+The instance norm is a normalization process that runs for each feature and each data sample in the mini-batch.
 
 ## Group normalization
-The group normalization technique is defined as a normalization technique that falls somewhere between layer and instance normalization. Instead of calculating normalization statistics for each feature, the group norm calculates them for a group of features.
+The group normalization technique is defined as a normalization technique that falls somewhere between layer and instance normalizations. Instead of calculating normalization statistics for each feature, the group norm calculates them for a group of features.
 
 ---
 ## Reference
