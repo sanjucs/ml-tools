@@ -23,7 +23,7 @@ Batch normalization is a technique for normalizing the activation, ensuring the 
 
 	$y_i = \gamma \cdot \hat{x_i} + \beta$
 
-* Compute the running mean and running variance, which are used during inference.
+* Compute the weighted running mean and variance during training to be stored and used during inference.
 
 	$x_{new} = x_{curr} \cdot \alpha + x_{old} \cdot (1 - \alpha)$ where
 
