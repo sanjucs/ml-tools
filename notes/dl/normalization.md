@@ -12,7 +12,7 @@ Batch normalization is a technique for normalizing the activation, ensuring the 
 
 	$\mu = {1 \over N} {\sum_{i}x_i}$
 
-	$σ^2 = {\sum_{i}(x_i-\mu)^2 \over N}$ where $N$ is the total number of datapoints.
+	$σ^2 = {1 \over N } {\sum_{i}(x_i-\mu)^2}$ where $N$ is the total number of datapoints.
 
 
 * Normalize the value by subtracting the mean from the value and then dividing it by the square root of variance.
