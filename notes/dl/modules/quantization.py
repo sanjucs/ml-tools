@@ -16,6 +16,8 @@ def linear_quantize(tensor, dtype=torch.int8):
   zero_point = int(round(zero_point))
 
   quantized_tensor = tensor / scale + zero_point
+  quantized_tensor = quantized_tensor.clamp_(q_min, q_max)
+
   return quantized_tensor, scale, zero_point
 
 def linear_dequantize(qtensor, scale, zero_point):
