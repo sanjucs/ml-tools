@@ -14,29 +14,30 @@ BFloat16 covers the same dynamic ranges as float32, but precision is the least c
 
 Linear quantization is one of the techniques used to convert a continuous range of numbers into lower and discrete numbers. e.g., converting from Float32 to INT8. The linear quantization can be defined as
 
-$r = s(q - z)$ where
+$$r = s \cdot (q - z)$$
+where
 
-$r$ = floating point real value
+$r$ : floating point real value
 
-$q$ = interger quantized number
+$q$ : interger quantized number
 
-$s$ = quantization scaling factor
+$s$ : quantization scaling factor
 
-$z$ = quantization zero-point
+$z$ : quantization zero-point
 
 ### Calculate scale and zero-point
 
 Consider quantization of numbers from $[r_{min}, r_{max}]$ to $[q_{min}, q_{max}]$.
 
-$r_{min} = s \cdot (q_{min} - z)$
+$$r_{min} = s \cdot (q_{min} - z)$$
 
-$r_{max} = s \cdot (q_{max} - z)$
+$$r_{max} = s \cdot (q_{max} - z)$$
 
-$r_{max} - r_{min} = s \cdot (q_{max} - q_{min}) $
+$$r_{max} - r_{min} = s \cdot (q_{max} - q_{min})$$
 
-$s = {r_{max} - r_{min} \over q_{max} - q_{min}}$
+$$s = {r_{max} - r_{min} \over q_{max} - q_{min}}$$
 
-$z = q_{min} - {r_{min} \over s}$
+$$z = q_{min} - {r_{min} \over s}$$
 
 Code implementation for linear quantization and dequantization can be found [here](/notes/dl/modules/quantization.py)
 
