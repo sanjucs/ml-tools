@@ -29,3 +29,13 @@
 **A:** The exploding gradient problem refers to the phenomenon when gradients w.r.t. loss become extremely large during backpropagation. Solutions to avoid the exploding gradient problem:
 * Normalisation techniques (e.g. Batch Normalization, Layer Normalization, etc.)
 * Gradient clipping
+
+---
+
+**Q:** What are the different normalization techniques in neural networks?
+
+**A:** [Normalization techniques](/notes/dl/normalization.md)
+
+---
+
+**Q:** Why is batch normalization not preferred in LLMs?
