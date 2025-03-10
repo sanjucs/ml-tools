@@ -17,7 +17,7 @@ Batch normalization is a technique for normalizing the activation, ensuring the 
 
 * Normalize the value by subtracting the mean from the value and then dividing it by the square root of variance.
 
-	$\hat{x_i} = {x_i -\mu \over \sqrt(σ^2 + \epsilon)}$ where $\epsilon$ is as small positive number added to prevent numerical instability.
+	$\hat{x_i} = {x_i -\mu \over \sqrt{σ^2 + \epsilon}}$ where $\epsilon$ is as small positive number added to prevent numerical instability.
 
 * Apply the learning parameters gamma and beta on the normalized value.
 
