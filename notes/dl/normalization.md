@@ -10,7 +10,7 @@ Batch normalization is a technique for normalizing the activation, ensuring the 
 
 * For each mini-batch, calculate the mean and variance for each feature.
 
-	$\mu = \sum_{i}x_i$
+	$\mu = {\sum_{i}x_i \over N}$
 
 	$σ^2 = {\sum_{i}(x_i-\mu)^2 \over N}$ where $N$ is the total number of datapoints.
 
