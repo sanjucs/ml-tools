@@ -26,7 +26,7 @@ $z$ = quantization zero-point
 
 ### Calculate scale and zero-point
 
-Consider quantization of numbers from [$r_{min}$, $r_{max}$] to [$q_{min}$, $q_{max}$]. 
+Consider quantization of numbers from $[r_{min}, r_{max}]$ to $[q_{min}, q_{max}]$.
 
 $r_{min} = s \cdot (q_{min} - z)$
 
