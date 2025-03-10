@@ -25,15 +25,17 @@ Batch normalization is a technique for normalizing the activation, ensuring the 
 
 * Compute the weighted running mean and variance during training to be stored and used during inference.
 
-	$x_{new} = x_{curr} \cdot \alpha + x_{old} \cdot (1 - \alpha)$ where
+	$\mu_{new} = \mu_{curr} \cdot \alpha + \mu_{old} \cdot (1 - \alpha)$ where
 
-	$x_{new}$ = updated value
+	$\mu_{new}$ = updated value
 
-	$x_{curr}$ = new observed value
+	$\mu_{curr}$ = new observed value
 
-	$x_{old}$ = previous estimated value
+	$\mu_{old}$ = previous estimated value
 
 	$\alpha$ = factor for the weighted sum
+
+	σ is also calculated in a similar fashion.
 
 ### Steps during inference
 * Normalize the value using the running mean and running variance computed during training.
