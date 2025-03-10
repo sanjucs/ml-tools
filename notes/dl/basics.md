@@ -39,3 +39,8 @@
 ---
 
 **Q:** Why is batch normalization not preferred in LLMs?
+
+---
+
+**Q:** Why are the quantization techniques in neural networks?
+**A:** [Quantization](/notes/dl/quantization.md)
