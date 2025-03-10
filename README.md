@@ -12,6 +12,4 @@
 	- BLEU score
 * [ML-Algorithms](/ml-algorithms)
 	- K-means
-* [OP optimizations](/ops/)
-	- softmax
 ---

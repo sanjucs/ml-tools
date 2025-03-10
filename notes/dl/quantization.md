@@ -39,3 +39,10 @@ $s = {r_{max} - r_{min} \over q_{max} - q_{min}}$
 $z = q_{min} - {r_{min} \over s}$
 
 Code implementation for linear quantization and dequantization can be found [here](/notes/dl/modules/quantization.py)
+
+---
+
+## Reference
+Courses
+* https://learn.deeplearning.ai/courses/quantization-fundamentals/
+* https://www.deeplearning.ai/short-courses/quantization-in-depth/
