@@ -1,7 +1,7 @@
 # Normalization techniques
 
 ![Normalization](/notes/dl/assets/normalization.jpg)
-*Figure 1: Figure shows different normalization techniques on a tensor with shape (N, c, H, W). Image credits: [Group Normalization](https://arxiv.org/pdf/1803.08494)*
+*Figure 1: Figure shows different normalization techniques on a tensor with shape (N, C, H, W). [Image credits]:[Group normalization](https://arxiv.org/pdf/1803.08494)*
 ## Batch normalization
 
 Batch normalization is a technique for normalizing the output of the previous layer, ensuring the mean and variance are 0 and 1, respectively. This helps to speed up the training and mitigates the vanishing and exploding gradient problems.
@@ -52,4 +52,4 @@ The group normalization technique is defined as a normalization technique that f
 
 ---
 ## Reference
-* Group Normalization (Paper Explained) https://www.youtube.com/watch?v=l_3zj6HeWUE
+* Group normalization (Paper Explained) https://www.youtube.com/watch?v=l_3zj6HeWUE
