@@ -32,7 +32,7 @@
 
 ---
 
-**Q:** What are the different normalization techniques in NN?
+**Q:** What are the different normalization techniques in neural networks?
 
 **A:** [Normalization techniques](/notes/dl/normalization.md)
 
