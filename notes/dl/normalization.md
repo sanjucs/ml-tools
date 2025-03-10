@@ -1,5 +1,7 @@
 # Normalization techniques
 
+![Normalization](/notes/dl/assets/normalization.jpg)
+*Figure 1: Figure shows different normalization techniques on a tensor with shape (N, c, H, W). Image credits: [Group Normalization](https://arxiv.org/pdf/1803.08494)*
 ## Batch normalization
 
 Batch normalization is a technique for normalizing the output of the previous layer, ensuring the mean and variance are 0 and 1, respectively. This helps to speed up the training and mitigates the vanishing and exploding gradient problems.
@@ -38,5 +40,16 @@ Batch normalization is a technique for normalizing the output of the previous la
 * Apply the learning parameters gamma and beta on the normalized value.
 
 Batch normalization generally used for CNN and FC models and not preferred in LLMs.
+
+## Layer normalization
+The layer norm calculates the normalization statistics for each data sample in the layer separately. The layer normalization method does not rely on mini-batch size and doesn't necessitate the calculations of running statistics for inference.
+
+## Instance normalization
+The instance norm is a normalization process done on each feature and each data sample in the mini-batch.
+
+## Group normalization
+The group normalization technique is defined as a normalization technique that falls somewhere between layer and instance normalization. Instead of calculating normalization statistics for each feature, the group norm calculates them for a group of features.
+
+---
 ## Reference
 * Group Normalization (Paper Explained) https://www.youtube.com/watch?v=l_3zj6HeWUE
