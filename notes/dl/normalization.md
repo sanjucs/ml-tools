@@ -42,7 +42,7 @@ Batch normalization is a technique for normalizing the output of the previous la
 Batch normalization generally used for CNN and FC models and not preferred in LLMs.
 
 ## Layer normalization
-The layer norm calculates the normalization statistics for each data sample in the layer separately. The layer normalization method doeen't rely on mini-batch size and doesn't necessitate the calculations of running statistics for inference.
+The layer norm calculates the normalization statistics for each data sample in the layer separately. The layer normalization method doesn't rely on mini-batch size and doesn't necessitate the calculations of running statistics for inference.
 
 ## Instance normalization
 The instance norm is a normalization process done on each feature and each data sample in the mini-batch.
