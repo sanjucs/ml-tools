@@ -1,15 +1,6 @@
 # ml-tools
 
-* [Distributed training](/distributed)
-	- [Data Parallel](/distributed/distributed.md)
-	- [Distributed Data Parallel](/distributed/distributed.md)
-	- [Fully Sharded Data Parallel](/distributed/distributed.md)
-* [Features](/features)
-	- [LoRA](/features/lora/)
----
-* [Evaluation metrics](/metrics)
-	- Confusion matrix
-	- BLEU score
-* [ML-Algorithms](/ml-algorithms)
-	- K-means
----
+* [DL notes](/notes/dl/)
+	* [Activations](/notes/dl/activations.md)
+	* [Normalization](/notes/dl/normalization.md)
+	* [Quantization](/notes/dl/quantization.md)
