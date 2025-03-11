@@ -43,4 +43,11 @@
 ---
 
 **Q:** Why are the quantization techniques in neural networks?
+
 **A:** [Quantization](/notes/dl/quantization.md)
+
+---
+
+**Q:** What is LoRA finetuning?
+
+**A:** [LoRA](/notes/dl/lora.md)

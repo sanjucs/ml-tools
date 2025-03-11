@@ -1,20 +1,18 @@
 # LoRA - Low Rank Adaptation
 
-Large language models are trained with billions of parameters. To use LLMs for specialized domains, we need fine-tuning methods. There are various methos for fine-tuning a model.
+Large language models are trained with billions of parameters. Fine-tuning methods helps to use the pretrained LLMs for other tasks. There are various methods for fine-tuning a model.
 * Fine-tune the entire model
 * Fine-tune only a few layers of the model
 * Introduce adaptive layers in the model.
 * LoRA
 
-## LoRA
-In LorA, all pretrained weights are made non-trainable and a new pair of low-rank matrices are introduced as trainable weights for selected modules.
+In LoRA, all the pretrained weights are made non-trainable and a new pair of low-rank matrices $LoRA A$ $LoRA B$ and  are introduced as trainable weights for selected modules.
 
-![Figure 1](/features/assets/lora.png) 
+![LoRA](/notes/dl/assets/lora.png)
 
-$W_{new} = W_{old} + AB$
+$$W_{new} = W_{old} + AB$$
 
-where 
-$W_{old}$ = pretrained weight, $A$ and $B$ are LoRA A and B weights respectively.
+where $W_{old}$ = pretrained weight, $A$ and $B$ are LoRA A and B weights respectively.
 
 ### Pros:
 * Since the trainable modules introduced are of lower rank, computations will be faster.
