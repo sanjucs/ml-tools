@@ -6,7 +6,7 @@ Large language models are trained with billions of parameters. Fine-tuning metho
 * Introduce adaptive layers in the model.
 * LoRA
 
-In LoRA, all the pretrained weights are made non-trainable and a new pair of low-rank matrices $LoRA A$ $LoRA B$ and  are introduced as trainable weights for selected modules.
+In LoRA, all the pretrained weights are made non-trainable and a new pair of low-rank matrices and are introduced as trainable weights for selected modules.
 
 ![LoRA](/notes/dl/assets/lora.png)
 
