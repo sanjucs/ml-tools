@@ -42,7 +42,7 @@ ${{d \over dx}} tanh(x) = sech^2(x)$
 ## Softmax
 The softmax function is defined as $softmax(x_i) = {e^{-x_i} \over \sum_{k}e^{-x_k}}$
 
-Optimized softmax calculation suggested in the flash attention paper can be found [here](/notes/dl/modules/softmax.py)
+The optimized softmax calculation suggested in the flash attention paper can be found [here](/notes/dl/modules/softmax.py)
 
 ## ReLU
 
