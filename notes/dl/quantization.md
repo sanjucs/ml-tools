@@ -8,11 +8,11 @@ The quantization is the process of converting tensors into lower precision. In n
 | float16 | 1 | 5 | 10 | 6.10352e-05 | 65504 | 0.001 | 
 | bfloat16 | 1 | 8 | 7 | 1.17549e-38 | 3.38953e+38 | 0.01 |
 
-BFloat16 covers the same dynamic ranges as float32, but precision is the least compared to others since there are fewer numbers of mantissa bits.
+BFloat16 covers the same dynamic range as float32, but it has the least precision when compared to the others since there are fewer numbers of mantissa bits.
 
 ## Linear quantization
 
-Linear quantization is one of the techniques used to convert a continuous range of numbers into lower and discrete numbers. e.g., converting from Float32 to INT8. The linear quantization can be defined as
+Linear quantization is one of the techniques used to convert a continuous range of numbers into lower and discrete numbers. e.g., converting from Float32 to INT8. Linear quantization can be defined as
 
 $$r = s \cdot (q - z)$$
 
@@ -40,7 +40,7 @@ $$s = {r_{max} - r_{min} \over q_{max} - q_{min}}$$
 
 $$z = q_{min} - {r_{min} \over s}$$
 
-Code implementation for linear quantization and dequantization can be found [here](/notes/dl/modules/quantization.py)
+There are two types of linear quantization: symmetric and asymmetric. In the former, the absolute maximum of the tensor ($r_{max}$) defines the range as $[-r_{max}, r_{max}]$, whereas the latter considers the min and max of the tensor $[r_{min}, r_{max}]$. Code implementation for linear quantization and dequantization can be found [here](/notes/dl/modules/quantization.py). Similarly, there are per-channel quantization, per-tensor quantization, and per-group quantization, which quantize per tensor level, channel level, and group level, respectively.
 
 ---
 

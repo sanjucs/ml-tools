@@ -1,13 +1,12 @@
 import torch
 
-from quantization import linear_sym_quantize, linear_dequantize
+from quantization import linear_sym_quantize
 
 class QLinear(torch.nn.Module):
   def __init__(self, in_features, out_features, bias=False, dtype=torch.float32):
     super(QLinear, self).__init__()
 
     self.register_buffer("int8_weights", torch.randint(-128, 128, (out_features, in_features), dtype=torch.int8))
-
     self.register_buffer("int8_scales", torch.randn(1, dtype=dtype))
 
     if bias:
@@ -19,14 +18,10 @@ class QLinear(torch.nn.Module):
     self.int8_weights, scale = linear_sym_quantize(weights)
     self.int8_scales = torch.tensor(scale)
 
-  def dequantize(self):
-    return linear_dequantize(self.int8_weights, self.int8_scales)
-
   def forward(self, x):
-    weights = self.dequantize()
-    weights = weights.to(x.dtype)
+    weights = self.int8_weights.to(x.dtype)
 
-    x = torch.nn.functional.linear(x, weights)
+    x = torch.nn.functional.linear(x, weights) * self.int8_scales
 
     if self.bias is not None:
       x = x + self.bias

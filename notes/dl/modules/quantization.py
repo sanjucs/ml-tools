@@ -4,7 +4,7 @@ def linear_asym_quantize(tensor, dtype=torch.int8, eps=1e-9):
   r_min, r_max = tensor.min().item(), tensor.max().item()
   q_min, q_max = torch.iinfo(dtype).min, torch.iinfo(dtype).max
 
-  scale = (r_max - r_min) / (q_max - q_min) + eps
+  scale = (r_max - r_min) / (q_max - q_min)
   zero_point = q_min - (r_min / (scale + eps))
 
   if zero_point < q_min:
@@ -14,7 +14,7 @@ def linear_asym_quantize(tensor, dtype=torch.int8, eps=1e-9):
 
   zero_point = int(round(zero_point))
 
-  quantized_tensor = tensor / scale + zero_point
+  quantized_tensor = tensor / (scale + eps) + zero_point
   quantized_tensor = quantized_tensor.clamp_(q_min, q_max)
 
   return quantized_tensor, scale, zero_point
@@ -27,9 +27,9 @@ def linear_sym_quantize(tensor, dtype=torch.int8, eps=1e-9):
   r_max = abs(tensor).max().item()
   q_max = torch.iinfo(dtype).max
 
-  scale = r_max / q_max + eps
+  scale = r_max / q_max
 
-  quantized_tensor = tensor / scale
+  quantized_tensor = tensor / (scale + eps)
   quantized_tensor = quantized_tensor.clamp_(-q_max, q_max)
 
   return quantized_tensor, scale
