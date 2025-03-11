@@ -15,6 +15,7 @@ BFloat16 covers the same dynamic ranges as float32, but precision is the least c
 Linear quantization is one of the techniques used to convert a continuous range of numbers into lower and discrete numbers. e.g., converting from Float32 to INT8. The linear quantization can be defined as
 
 $$r = s \cdot (q - z)$$
+
 where
 
 $r$ : floating point real value
