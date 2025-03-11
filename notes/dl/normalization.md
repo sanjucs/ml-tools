@@ -10,22 +10,27 @@ Batch normalization is a technique for normalizing the activation, ensuring the 
 
 * For each mini-batch, calculate the mean and variance for each feature.
 
-	$\mu = {1 \over N} {\sum_{i}x_i}$
+	$$\mu = {1 \over N} {\sum_{i}x_i}$$
 
-	$σ^2 = {1 \over N } {\sum_{i}(x_i-\mu)^2}$ where $N$ is the total number of datapoints.
+	$$σ^2 = {1 \over N } {\sum_{i}(x_i-\mu)^2}$$
 
+	where $N$ is the total number of datapoints.
 
 * Normalize the value by subtracting the mean from the value and then dividing it by the square root of variance.
 
-	$\hat{x_i} = {x_i -\mu \over \sqrt{σ^2 + \epsilon}}$ where $\epsilon$ is as small positive number added to prevent numerical instability.
+	$$\hat{x_i} = {x_i -\mu \over \sqrt{σ^2 + \epsilon}}$$
+
+	where $\epsilon$ is as small positive number added to prevent numerical instability.
 
 * Apply the learning parameters gamma and beta on the normalized value.
 
-	$y_i = \gamma \cdot \hat{x_i} + \beta$
+	$$y_i = \gamma \cdot \hat{x_i} + \beta$$
 
 * Compute the weighted running mean and variance during training to be stored and used during inference.
 
-	$\mu_{new} = \mu_{curr} \cdot \alpha + \mu_{old} \cdot (1 - \alpha)$ where
+	$$\mu_{new} = \mu_{curr} \cdot \alpha + \mu_{old} \cdot (1 - \alpha)$$
+
+	where
 
 	$\mu_{new}$ = updated value
 
