@@ -19,7 +19,7 @@ class Net(torch.nn.Module):
     x = self.fc2(x)
     return x
 
-class RandomDataset(torch.utils.data.Dataset):
+class RandomDataset():
   def __init__(self, dataset_length, input_dim, output_dim):
     self.data = torch.randn(dataset_length, input_dim)
     self.labels = torch.randn(dataset_length, output_dim)
@@ -56,10 +56,10 @@ def train(rank, world_size):
     optimizer.zero_grad()
     X, y = item['X'], item['y']
     out = model(X)
-    print(f'[RANK:{rank}] input_size::{X.shape}, output_size::{y.shape}), input_sum::{torch.sum(X):.2f}, output_sum::v{torch.sum(out):.2f}')
     loss = mse_loss(out, y)
     loss.backward()
     optimizer.step()
+    print(f'[RANK:{rank}] input_size::{X.shape}, output_size::{y.shape}), input_sum::{torch.sum(X):.2f}, output_sum::{torch.sum(out):.2f}')
 
   cleanup()
 

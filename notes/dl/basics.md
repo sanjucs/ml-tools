@@ -51,3 +51,9 @@
 **Q:** What is LoRA finetuning?
 
 **A:** [LoRA](/notes/dl/lora.md)
+
+---
+
+**Q:** What is distributed training?
+
+**A:** [Distributed training](/notes/dl/distributed.md)
