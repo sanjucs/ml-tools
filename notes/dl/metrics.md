@@ -32,7 +32,7 @@ $$ precision = { TP \over TP + FP}$$
 
 $$ recall = { TP \over TP + FN}$$
 
-<u>Confusion matrix</u>
+<ins>Confusion matrix</ins>
 
 The confusion matrix is a matrix to evaluate the performance of a model by comparing the target and predicted values. It is an $(N, N)$ matrix, with each row representing the target class and each column representing the predicted class. The diagonal elements of the metrics correspond to the correctly predicted data samples. The metrics mentioned in the previous section can be easily calculated using the confusion matrix.
 
@@ -50,12 +50,12 @@ target    = [2, 0, 2, 0, 1, 0, 1, 1, 1, 0, 2, 2, 0, 0, 1, 2]
 predicted = [0, 0, 2, 0, 2, 2, 2, 2, 2, 2, 1, 2, 0, 0, 1, 0]
 
 confusion matrix = [[4., 0., 2.],
-					[0., 1., 4.],
-					[2., 1., 2.]] (target x predicted)
+		    [0., 1., 4.],
+                    [2., 1., 2.]] (target x predicted)
 
 precision : [0.6667, 0.5000, 0.2500] 
 recall    : [0.6667, 0.2000, 0.4000] 
-f1-score   : [0.6667, 0.2857, 0.3077]
+f1-score  : [0.6667, 0.2857, 0.3077]
 accuracy  : 0.4375
 balanced_accuracy': 0.4222
 ```
