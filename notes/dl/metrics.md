@@ -34,9 +34,9 @@ $$ recall = { TP \over TP + FN}$$
 
 <u>Confusion matrix</u>
 
-The confusion matrix is a matrix to evaluate performance of model by comparing target value to predicted value. It is a $(N, N)$ matrix in which each row represent the target class and each colomn represents the predicted class. The diagonal elemnts of the metrics represents the correctly predicted data samples. The metrics defined in the previous section can be easily computed from confusion matrix.
+The confusion matrix is a matrix to evaluate the performance of a model by comparing the target and predicted values. It is an $(N, N)$ matrix, with each row representing the target class and each column representing the predicted class. The diagonal elements of the metrics correspond to the correctly predicted data samples. The metrics mentioned in the previous section can be easily calculated using the confusion matrix.
 
-Let A be the confusion matrix, then precision and recall of the $i^{th}$ class is defined as
+Let A be the confusion matrix; then precision, recall and accuracy of the $i^{th}$ class is calculated as
 
 $$precision_{i} = {A_{ii} \over \sum_{j} Aji}$$
 
