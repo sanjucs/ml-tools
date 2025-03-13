@@ -63,7 +63,7 @@ Distributed training refers to the process of training models across multiple de
 	from torch.nn.parallel import DistributedDataParallel as DDP
 	model = DDP(model)
 	```
-	* Divide inputs and targets across the processs
+	* Divide inputs and targets across the processes
 	```python
 	sampler = torch.utils.data.DistributedSampler(dataset, num_replicas=world_size, shuffle=True)
 	dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=sampler)
@@ -76,33 +76,35 @@ Distributed training refers to the process of training models across multiple de
 		param.grad.data /= dist.get_world_size()
 	```
 ## Collectives
-Collectives communicate across all processes in a group. There are a total of seven collectives implemented in PyTorch:
+Collectives help to communicate across the processes in a group. There are a total of seven collectives implemented in PyTorch:
 * dist.broadcast(tensor, src, group): Copies `tensor` from `src` to all other processes.
-* dist.reduce(tensor, dst, op, group): Applies `op` to `tensor` in every process and stores the result in `dst`.
+* dist.reduce(tensor, dst, op, group): Applies `op` to the `tensor` in every process and stores the result in `dst` process.
 * dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
 * dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup> `tensor` in `scatter_list` to the i<sup>th</sup> process.
 * dist.gather(tensor, gather_list, dst, group): Copies `tensor` from all processes in `dst`.
 * dist.all_gather(tensor_list, tensor, group): Copies `tensor` from all processes to `tensor_list` on all processes.
-* dist.barrier(group): Blocks all processes in group until each one has entered this function.
+* dist.barrier(group): Blocks all processes in the group until each one has entered this function.
 
-[example_collective.py](/distributed/examples/example_collectives.py) shows an example with PyTorch collectives
+[example_collective.py](/notes/dl/modules/example_collectives.py) shows an example with PyTorch collectives
 
 ## Fully Sharded Data Parallel (FSDP)
 
-FSDP shards model's parameters, gradients and optimizer states across the workers and optionally offload the parameters to CPUs. This results in lower memory requirements on device compared to DDP, but with an increase in communication bandwidth requirements.
+FSDP shards the model's parameters, gradients, and optimizer states across the workers and optionally offloads the parameters to CPUs. This reduces the device's memory use when compared to DDP but comes at a higher cost in communication bandwidth.
 
 * Steps involved
-	* Prerequisite - Initialize prcessgroup.
-	* Construction - Shard model parameters and each rank keeps its own shard.
+	* Prerequisite
+		Initialize `ProcessGroup`.
+	* Construction
+		Shard model parameters and each rank keeps its own sharded parameters.
 	* Forward pass
-		* Run allgather to collect all parameters from all ranks of the particular FSDP unit.
-		* Takes the input on the rank, run the model.
-		* Release parameter shards of other ranks.
+		* Run allgather to collect all parameters from all ranks of the current FSDP unit.
+		* Run the model on the inputs passed to the rank.
+		* After forward, release parameter shards of other ranks.
 	* Backward pass
-		* Run allgather to collect all parameters from all ranks of the particular FSDP unit.
+		* Run allgather to collect all parameters from all ranks of the current FSDP unit.
 		* Run backward computation.
 		* Run reduce-scatter to synchronizer gradients.
-		* Release parameter shards of other ranks.
+		* After backward, release parameter shards of other ranks.
 	* Optimizer step
 		* Each rank optimizes it's own sharded parameters.
 
@@ -110,10 +112,7 @@ FSDP shards model's parameters, gradients and optimizer states across the worker
 	```
 	model = FSDP(model)
 	```
-	* There is only one FSDP instance that wraps entire model.
-	* During forward and backward passes, allgather will collect full parameters, hence there won't be any memory optimization.
-	* Since there is only one instance, it inherently precludes commnunication and computation overlap.
-
+	If there is only one FSDP instance that wraps the entire model, during forward and backward passes, allgather will collect full parameters; hence, there won't be any memory optimization, and it inherently precludes communication and computation overlap.
 
 ## Reference
 
@@ -122,13 +121,12 @@ FSDP shards model's parameters, gradients and optimizer states across the worker
 
 ### DataParallel
 * https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html
-* https://pytorch.org/tutorials/beginner/former_torchies/parallelism_tutorial.html
 * https://pytorch.org/tutorials/beginner/blitz/data_parallel_tutorial.html
 * https://pytorch.org/docs/stable/notes/faq.html#pack-rnn-unpack-with-data-parallelism
 
 ### DistributedDataParallel
-* https://pytorch.org/docs/stable/notes/ddp.html
 * https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html
+* https://pytorch.org/docs/stable/notes/ddp.html
 * https://pytorch.org/tutorials/intermediate/dist_tuto.html
 * https://pytorch.org/tutorials/intermediate/ddp_tutorial.html
 
