@@ -1,5 +1,4 @@
 import torch
-import matplotlib.pyplot as plt
 
 class ConfusionMatrix:
 
@@ -27,8 +26,8 @@ class ConfusionMatrix:
 if __name__ == '__main__':
   torch.manual_seed(0)
 
-  target = torch.randint(0, 2, (9, ))
-  predicted = torch.randint(0, 2, (9, ))
+  target = torch.randint(0, 3, (16, ))
+  predicted = torch.randint(0, 3, (16, ))
 
   result = ConfusionMatrix().compute(target, predicted)
   print(result)

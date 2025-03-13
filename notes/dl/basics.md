@@ -57,3 +57,11 @@
 **Q:** What is distributed training?
 
 **A:** [Distributed training](/notes/dl/distributed.md)
+
+---
+
+**Q** What are the performance metrics used in neural networks?
+
+**A** [Performance metrics](/notes/dl/metrics.md)
+
+---
