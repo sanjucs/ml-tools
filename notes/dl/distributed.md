@@ -18,18 +18,18 @@ Distributed training refers to the process of training models across multiple de
 * DDP broadcasts the model at instantiation time instead of every forward pass.
 * Steps involved
 	* Prerequisite
-		DDP relies on `Processgroup` which necessitated the creation of `ProcessGroup` before initializing DDP.
+		* DDP relies on `Processgroup` which necessitates the creation of `ProcessGroup` before initializing DDP.
 	* Instantiation
 		* Broadcast state-dict from rank:0 to all other processes.
 		* Each DDP process creates its own `Reducer` which
 			* Maps parameter gradients into buckets
 			* Registers autograd hook per parameter.
 	* Forward pass
-		DDP takes the input, passes it to the local model, and runs the local model.
+		* DDP takes the input, passes it to the local model, and runs the local model.
 	* Backward pass
-		When one gradient is ready, the corresponding hook will be triggered and will mark as ready for reduction. Once all the gradients in a bucket are ready for reduction, `Reducer` will call all-reduce on the bucket.
+		* When one gradient is ready, the corresponding hook will be triggered and will mark it as ready for reduction. Once all the gradients in a bucket are ready for reduction, `Reducer` will call all-reduce on the bucket.
 	* Optimizer step
-		Since allreduce already synchronizes gradients across the processes, the optimizer step is equivalent to optimizing the local model.
+		* Since allreduce already synchronizes gradients across the processes, the optimizer step is equivalent to optimizing the local model.
 	*	Note: Buffers such as batch norm stats are broadcasted from rank 0 to all other processes in every iteration.
 
 
@@ -77,13 +77,13 @@ Distributed training refers to the process of training models across multiple de
 	```
 ## Collectives
 Collectives help to communicate across the processes in a group. There are a total of seven collectives implemented in PyTorch:
-* dist.broadcast(tensor, src, group): Copies `tensor` from `src` to all other processes.
-* dist.reduce(tensor, dst, op, group): Applies `op` to the `tensor` in every process and stores the result in `dst` process.
-* dist.all_reduce(tensor, op, group): Same as reduce, but the result is stored in all processes.
-* dist.scatter(tensor, scatter_list, src, group): Copies the i<sup>th</sup> `tensor` in `scatter_list` to the i<sup>th</sup> process.
-* dist.gather(tensor, gather_list, dst, group): Copies `tensor` from all processes in `dst`.
-* dist.all_gather(tensor_list, tensor, group): Copies `tensor` from all processes to `tensor_list` on all processes.
-* dist.barrier(group): Blocks all processes in the group until each one has entered this function.
+* _dist.broadcast(tensor, src, group)_: Copies `tensor` from `src` to all other processes.
+* _dist.reduce(tensor, dst, op, group)_: Applies `op` to the `tensor` in every process and stores the result in `dst` process.
+* _dist.all_reduce(tensor, op, group)_: Same as reduce, but the result is stored in all processes.
+* _dist.scatter(tensor, scatter_list, src, group)_: Copies the i<sup>th</sup> `tensor` in `scatter_list` to the i<sup>th</sup> process.
+* _dist.gather(tensor, gather_list, dst, group)_: Copies `tensor` from all processes in `dst`.
+* _dist.all_gather(tensor_list, tensor, group)_: Copies `tensor` from all processes to `tensor_list` on all processes.
+* _dist.barrier(group)_: Blocks all processes in the group until each one has entered this function.
 
 [example_collective.py](/notes/dl/modules/example_collectives.py) shows an example with PyTorch collectives
 
@@ -93,9 +93,9 @@ FSDP shards the model's parameters, gradients, and optimizer states across the w
 
 * Steps involved
 	* Prerequisite
-		Initialize `ProcessGroup`.
+		* Initialize `ProcessGroup`.
 	* Construction
-		Shard model parameters and each rank keeps its own sharded parameters.
+		* Shard model parameters and each rank keeps its own sharded parameters.
 	* Forward pass
 		* Run allgather to collect all parameters from all ranks of the current FSDP unit.
 		* Run the model on the inputs passed to the rank.
