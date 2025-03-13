@@ -5,3 +5,4 @@
 	* [Normalization](/notes/dl/normalization.md)
 	* [Quantization](/notes/dl/quantization.md)
 	* [LoRA](/notes/dl/lora.md)
+	* [Distributed training](/notes/dl/distributed.md)

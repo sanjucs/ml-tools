@@ -56,7 +56,7 @@ def train(rank, world_size):
     optimizer.zero_grad()
     X, y = item['X'], item['y']
     out = model(X)
-    print(f'[RANK:{rank}] input_size::{X.shape}, output_size::{y.shape}), input_sum::{torch.sum(X):.2f}, output_sum::v{torch.sum(out):.2f}')
+    print(f'[RANK:{rank}] input_size::{X.shape}, output_size::{y.shape}), input_sum::{torch.sum(X):.2f}, output_sum::{torch.sum(out):.2f}')
     loss = mse_loss(out, y)
     loss.backward()
     optimizer.step()

@@ -1,35 +1,39 @@
-# Distributed training in PyTorch
+# Distributed training
 
+Distributed training refers to the process of training models across multiple devices, which helps to accelerate the training process, accommodate large datasets, and manage large models that would not fit on a single device.
 ## DataParallel
-* Split mini batches of samples into multiple smaller mini batches, and run each of the smaller mini batches in parallel.
+* Split mini batches of samples into multiple smaller mini batches and run each of the smaller mini batches in parallel.
 * Fundamental ops
 	* replicate
 	* scatter
 	* gather
 	* parallel_apply
 * Limitations of DataParallel
-	* Replicates model in every forward pass.
-	* Single process - multi threaded parallelism and suffers from GIL contention.
-	* Ovehead due to scatter and gather operations.
+	* Replicates the model in every forward pass.
+	* Single-process multi-threaded parallelism and suffers from GIL contention.
+	* Overhead due to scatter and gather operations.
 
 ## DistributedDataParallel
-* Replicates model on every process and each process is fed with a different set of inputs. DDP takes care of gradient communication/synchronization across the processes and overlaps it with gradient computation.
-* Model broadcast at DDP construction time instead of every forward pass.
+* Replicates the model on every process, and each process is fed with a different set of inputs. DDP takes care of gradient communication/synchronization across the processes and overlaps it with gradient computation.
+* DDP broadcasts the model at instantiation time instead of every forward pass.
 * Steps involved
-	* Prerequisite - DDP relies on Processgroup. So the application must create a ProcessGroup before initializing DDP
-	* Construction
-		* Broadcast state-dict from rank:0 for all other processes.
-		* Each DDP process creates its own Reducer which
+	* Prerequisite
+		DDP relies on `Processgroup` which necessitated the creation of `ProcessGroup` before initializing DDP.
+	* Instantiation
+		* Broadcast state-dict from rank:0 to all other processes.
+		* Each DDP process creates its own `Reducer` which
 			* Maps parameter gradients into buckets
 			* Registers autograd hook per parameter.
-	* Forward pass - DDP takes the input, pass to the local model and run the local model.
+	* Forward pass
+		DDP takes the input, passes it to the local model, and runs the local model.
 	* Backward pass
-		* When one gradient is ready, corresponding hook will be triggered and mark as ready for reduction.
-		* Once all the gradients in a bucket are ready for reduction, the Reducer will call allreduce on the bucket.
-	* Optimizer step - Since allreduce synchronizes gradients across the processes, optimizer step is equivalent to optimizing the local model.
-* Parameters are never broadcasted between the processes. But buffers like batchnorm stats are broadcasted rank 0 prcoess to all other processes in every iteration.
+		When one gradient is ready, the corresponding hook will be triggered and will mark as ready for reduction. Once all the gradients in a bucket are ready for reduction, `Reducer` will call all-reduce on the bucket.
+	* Optimizer step
+		Since allreduce already synchronizes gradients across the processes, the optimizer step is equivalent to optimizing the local model.
+	*	Note: Buffers such as batch norm stats are broadcasted from rank 0 to all other processes in every iteration.
 
-* [example_ddp.py](/distributed/examples/example_ddp.py) shows an example usage of DDP with gloo backend
+
+* [example_ddp.py](/notes/dl/modules/example_ddp.py) shows an example usage of DDP with gloo backend
 	* setup distributed env
 		* using mp.Process
 		```python
@@ -59,7 +63,7 @@
 	from torch.nn.parallel import DistributedDataParallel as DDP
 	model = DDP(model)
 	```
-	* Divide inputs and outputs across the processs
+	* Divide inputs and targets across the processs
 	```python
 	sampler = torch.utils.data.DistributedSampler(dataset, num_replicas=world_size, shuffle=True)
 	dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=sampler)
