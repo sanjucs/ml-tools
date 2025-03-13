@@ -61,5 +61,20 @@ balanced_accuracy': 0.4222
 ```
 The implementation for the confusion matrix can be found [here](/notes/dl/modules/metrics/confusion_matrix.py).
 
+## Regression tasks
+$$ \text{Mean Square Error = } MSE = {1 \over N} \sum_i(y_i - \hat{y_i})^2$$
+
+$$ \text{Root mean Square Error = } RMSE = \sqrt {{1 \over N} \sum_i(y_i - \hat{y_i})^2}$$
+
+$$ \text{Mean Absolute Error = } MAE = {1 \over N} \sum_i|
+y_i - \hat{y_i}|$$
+
+where
+
+$N$: number of samples
+
+$\hat{y_i}$: actual value
+
+$y_i$: predicted value
 ## Reference
 * [[Wiki] Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
