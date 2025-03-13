@@ -22,6 +22,7 @@ $FP$: False Positive (Incorrectly predicted negative samples / false alarms).
 $FN$: False Negative (correctly predicted positive samples - misses/underestimations).
 
 For a 2 class problem
+
 $$ accuracy = {TP + TN \over TP + TN + FP + FN}$$
 
 $$ precision = { TP \over TP + FP}$$
