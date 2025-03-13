@@ -60,8 +60,8 @@
 
 ---
 
-**Q** What are the accuracy metrics used in neural networks?
+**Q** What are the performance metrics used in neural networks?
 
-**A** [Accuracy metrics](/notes/dl/metrics.md)
+**A** [Performance metrics](/notes/dl/metrics.md)
 
 ---
