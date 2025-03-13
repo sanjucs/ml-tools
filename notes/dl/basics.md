@@ -52,6 +52,8 @@
 
 **A:** [LoRA](/notes/dl/lora.md)
 
+---
+
 **Q:** What is distributed training?
 
-**A:** [LoRA](/notes/dl/distributed.md)
+**A:** [Distributed training](/notes/dl/distributed.md)
