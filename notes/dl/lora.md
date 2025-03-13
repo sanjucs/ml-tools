@@ -21,7 +21,7 @@ where $W_{old}$ = pretrained weight, $A$ and $B$ are LoRA A and B weights respec
 * During inference $W_{new}$ can be precomputed using $W_{old}$, $A$, and $B$, which helps keep the inference latency the same as the pretrained model.
 
 ## Multi-LoRA inference
-Serving a model with a single LoRA adapter is as simple as fusing the modules to the base model and can run without any additional overhead. However, serving multiple LoRAs requires special handling. One way is to create multiple models by fusing each LoRA module with the base model. But this approach requires a lot of memory and is not a recommended solution. Another popular technique is to store all LoRA modules on the host and load them into the device as and when needed.
+Serving a model with a single LoRA adapter is as simple as fusing the modules to the base model and running it without any additional overheads. However, serving multiple LoRAs requires special handling. One way is to create multiple models by fusing each LoRA module with the base model. But this approach requires a lot of memory and is not a recommended solution. Another popular technique is to store all LoRA modules on the host and load them into the device as and when needed.
 
 ## Reference
 * [LoRA paper](https://arxiv.org/abs/2106.09685)
