@@ -40,7 +40,7 @@ $$s = {r_{max} - r_{min} \over q_{max} - q_{min}}$$
 
 $$z = q_{min} - {r_{min} \over s}$$
 
-There are two types of linear quantization: symmetric and asymmetric. In the former, the absolute maximum of the tensor ($r_{max}$) defines the range as $[-r_{max}, r_{max}]$, whereas the latter considers the min and max of the tensor $[r_{min}, r_{max}]$. Code implementation for linear quantization and dequantization can be found [here](/notes/dl/modules/quantization.py). Similarly, there are per-channel quantization, per-tensor quantization, and per-group quantization, which quantize per tensor level, channel level, and group level, respectively.
+There are two types of linear quantization: symmetric and asymmetric. In the former, the absolute maximum of the tensor ($r_{max}$) defines the range as $[-r_{max}, r_{max}]$, whereas the latter considers the min and max of the tensor $[r_{min}, r_{max}]$. Code implementation for linear quantization and dequantization can be found [here](/tools/quantization/quantization.py). Similarly, there are per-channel quantization, per-tensor quantization, and per-group quantization, which quantize per tensor level, channel level, and group level, respectively.
 
 ---
 
