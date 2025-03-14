@@ -33,7 +33,7 @@ Distributed training refers to the process of training models across multiple de
 	*	Note: Buffers such as batch norm stats are broadcasted from rank 0 to all other processes in every iteration.
 
 
-* [example_ddp.py](/notes/dl/modules/example_ddp.py) shows an example usage of DDP with gloo backend
+* [example_ddp.py](/tools/distributed/example_ddp.py) shows an example usage of DDP with gloo backend
 	* setup distributed env
 		* using mp.Process
 		```python
@@ -85,7 +85,7 @@ Collectives help to communicate across the processes in a group. There are a tot
 * _dist.all_gather(tensor_list, tensor, group)_: Copies `tensor` from all processes to `tensor_list` on all processes.
 * _dist.barrier(group)_: Blocks all processes in the group until each one has entered this function.
 
-[example_collective.py](/notes/dl/modules/example_collectives.py) shows an example with PyTorch collectives
+[example_collective.py](/tools/distributed/example_collectives.py) shows an example with PyTorch collectives
 
 ## Fully Sharded Data Parallel (FSDP)
 

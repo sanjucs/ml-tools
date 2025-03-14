@@ -59,7 +59,7 @@ f1-score  : [0.6667, 0.2857, 0.3077]
 accuracy  : 0.4375
 balanced_accuracy': 0.4222
 ```
-The implementation for the confusion matrix can be found [here](/notes/dl/modules/metrics/confusion_matrix.py).
+The implementation for the confusion matrix can be found [here](/tools/metrics/confusion_matrix.py).
 
 ## Regression tasks
 $$ \text{Mean Square Error = } MSE = {1 \over N} \sum_i(y_i - \hat{y_i})^2$$
@@ -97,7 +97,7 @@ $P_{n}$: Precision of $n-gram$
 
 $w_{n}$: weightage of $n-gram$
 
-The brevity penalty helps to penalize the sentences that are too short. The implementation for BLEU Score can be found [here](/notes/dl/modules/metrics/bleu_score.py).
+The brevity penalty helps to penalize the sentences that are too short. The implementation for BLEU Score can be found [here](/tools/metrics/bleu_score.py).
 
 Example:
 ```
@@ -147,4 +147,3 @@ The implementation for the wer can be found [here](/notes/dl/modules/metrics/wer
 ## Reference
 * [[Wiki] Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
 * [BLEU score](https://towardsdatascience.com/foundations-of-nlp-explained-bleu-score-and-wer-metrics-1a5ba06d812b/)
-
