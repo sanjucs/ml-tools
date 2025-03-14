@@ -20,6 +20,8 @@ def compute_wer(target, predicted):
       else:
         dp[i][j] = min(min(dp[i][j-1], dp[i-1][j]), dp[i-1][j-1]) + 1
 
+  for row in dp:
+    print(row)
   return dp[-1][-1] / target_len
 
 if __name__ == '__main__':

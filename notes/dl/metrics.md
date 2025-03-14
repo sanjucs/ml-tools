@@ -140,6 +140,8 @@ $D$: number of deletions
 
 $N$: number of words in target
 
+Note: WER tries to align target to predicted text. 
+
 The implementation for the wer can be found [here](/notes/dl/modules/metrics/wer.py).
 
 ## Reference
