@@ -1,6 +1,6 @@
 def compute_wer(target, predicted):
-  target = target.split()
-  predicted = predicted.split()
+  target = target.lower().split()
+  predicted = predicted.lower().split()
 
   predicted_len = len(predicted)
   target_len = len(target)
