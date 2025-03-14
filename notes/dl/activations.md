@@ -50,7 +50,7 @@ The softmax function is defined as
 
 $$softmax(x_i) = {e^{x_i} \over \sum_{k}e^{x_k}}$$
 
-The optimized softmax calculation suggested in the flash attention paper can be found [here](/notes/dl/modules/softmax.py)
+The optimized softmax calculation suggested in the flash attention paper can be found [here](/tools/softmax.py)
 
 ## ReLU
 
