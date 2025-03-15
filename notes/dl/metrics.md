@@ -144,6 +144,9 @@ Note: WER tries to align target to predicted text.
 
 The implementation for the wer can be found [here](/notes/dl/modules/metrics/wer.py).
 
+Example: 
+![WER](/notes/dl/assets/wer.png)
+
 ## Reference
 * [[Wiki] Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
 * [BLEU score](https://towardsdatascience.com/foundations-of-nlp-explained-bleu-score-and-wer-metrics-1a5ba06d812b/)
