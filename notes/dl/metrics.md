@@ -144,7 +144,8 @@ Note: WER tries to align target to predicted text.
 
 The implementation for the wer can be found [here](/notes/dl/modules/metrics/wer.py).
 
-Example: 
+Example:
+
 ![WER](/notes/dl/assets/wer.png)
 
 ## Reference
