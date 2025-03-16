@@ -126,7 +126,27 @@ Cons:
 
 <ins> Word Error Rate (WER) </ins>
 
-<ins> Perplexity </ins>
+WER is a metric used to evaluate the predictions in ASR and machine translational systems. The predicted text may contain new words, missing words, or alternate words. WER takes into account all of these aspects and calculates the error accordingly.
+
+$$WER = {S + I + D \over N}$$
+
+where
+
+$S$: number of substitutions
+
+$I$: number of insertions
+
+$D$: number of deletions
+
+$N$: number of words in target
+
+Note: WER tries to align target to predicted text. 
+
+The implementation for the wer can be found [here](/notes/dl/modules/metrics/wer.py).
+
+Example:
+
+![WER](/notes/dl/assets/wer.png)
 
 ## Reference
 * [[Wiki] Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
