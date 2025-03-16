@@ -1,5 +1,17 @@
 # ml-tools
 
+* [Tools](/tools/)
+	* [Distributed training examples](/tools/distributed/)
+		* [Collectives](/tools/distributed/example_collectives.py)
+		* [DDP](/tools/distributed/example_ddp.py)
+		* [FSDP](/tools/distributed/example_fsdp.py)
+	* [Quantization](/tools/quantization/)
+	 * [Linear quantization](/tools/quantization/quantization.py)
+	* [Performance metrics](/tools/metrics/)
+		* [BLEU score](/tools/metrics/bleu_score.py)
+		* [Confucion matrix](/tools/metrics/confusion_matrix.py)
+	* [Softmax: Computation method used in flash attention](/tools/softmax.py)
+
 * [DL notes](/notes/dl/)
 	* [Activations](/notes/dl/activations.md)
 	* [Distributed training](/notes/dl/distributed.md)
