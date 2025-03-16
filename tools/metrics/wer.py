@@ -46,8 +46,8 @@ class WER:
           prev_counts = [dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]]
           cost_sub = self.get_cost(prev_counts[0]) + add_costs[0]
           cost_del = self.get_cost(prev_counts[1]) + add_costs[1]
-          cost_INS = self.get_cost(prev_counts[2]) + add_costs[2]
-          index = self.argmin([cost_sub, cost_del, cost_INS])
+          cost_ins = self.get_cost(prev_counts[2]) + add_costs[2]
+          index = self.argmin([cost_sub, cost_del, cost_ins])
 
           self.set_counts(dp, i, j, prev_counts[index])
           dp[i][j][index] += add_costs[index]
