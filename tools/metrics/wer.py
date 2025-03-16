@@ -56,13 +56,13 @@ class WER:
 
   def compute(self, target, predicted, is_case_sensitive=False):
     x = self._compute(target, predicted, is_case_sensitive)
-    cost = sum(x[:-1]) / sum(x)
+    wer = sum(x[:-1]) / sum(x)
     SDIC = {'S': x[0], 
             'D': x[1],
             'I': x[2],
             'C': x[3],
           }
-    return {'cost': cost, 'SDIC': SDIC}
+    return {'wer': wer, 'SDIC': SDIC}
 
 if __name__ == '__main__':
   target = "The guard arrived late because it was raining"
