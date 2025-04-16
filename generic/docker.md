@@ -1,11 +1,11 @@
 # Docker
 
-Container is a runtime environment that contains everything to run an application, allowing it to run independetly on any system. Docker is a open-sourced platform that helps to build, ship, and run application in containers.
+Docker container is a runtime environment that contains everything to run an application, allowing it to run independetly on any system. Docker is a open-sourced platform that helps to build, ship, and run application in containers.
 
 ## Installation
 Install docker engine on Ubuntu using https://docs.docker.com/engine/install/ubuntu/
 
-Verify the installation by running `hello-world image
+Verify the installation by running `hello-world` image
 ```
 sudo docker run hello-world
 ```
@@ -16,9 +16,12 @@ sudo usermod -aG docker $USER
 ```
 
 ## Stages of containerization
-* Build Docker File. Dockerfile contains set of instruction to build docker image. Generally named as Dockerfile without any extension.
-* Ship Docker Image. Docker inage is a stack of multiple layers created from Dockerfile instructions
-* Run Docker Container. Container is runtime instance of docker image.
+* Build Docker File.
+  * Dockerfile contains set of instruction to build docker image. Generally named as Dockerfile without any extension.
+* Ship Docker Image.
+  * Docker image is a stack of multiple layers created from Dockerfile instructions.
+* Run Docker Container.
+  * Container is runtime instance of docker image.
 
 ```bash
 # Sample Dockerfile
