@@ -5,7 +5,7 @@ Docker container is a runtime environment that contains everything to run an app
 ## Installation
 Install docker engine on Ubuntu using https://docs.docker.com/engine/install/ubuntu/
 
-Verify the installation by running `hello-world` image
+Verify the installation by running the `hello-world` image
 ```
 sudo docker run hello-world
 ```
@@ -16,12 +16,12 @@ sudo usermod -aG docker $USER
 ```
 
 ## Stages of containerization
-* Write Docker File.
+* Write the Dockerfile.
   * Dockerfile contains a set of instructions to build the docker image, generally named as Dockerfile without any extension.
 * Build Docker Image.
   * Docker image is a stack of multiple layers created from Dockerfile instructions.
 * Run Docker Container.
-  * Container is runtime instance of docker image.
+  * A container is the runtime instance of a docker image.
 
 ```bash
 # Sample Dockerfile
