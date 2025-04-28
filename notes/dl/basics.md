@@ -12,7 +12,7 @@
 
 **Q:** What are activation functions in neural networks?
 
-**A:** [Activation functions](/dl/activations.md)
+**A:** [Activation functions](/notes/dl/activations.md)
 
 ---
 
