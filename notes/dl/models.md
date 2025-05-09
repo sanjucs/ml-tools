@@ -7,7 +7,9 @@ Recurrent neural networks (RNNs) are designed to handle sequential data by proce
 
 
 At time $t$ a RNN unit receives the current input $x_t$ and previous hidden state $h_{t-1}$ results new hidden state $h_t$ and output $y_t$.
+
 $$h_t = \Phi(W_{hh} h_{t-1} + W_{xh} x_t + b_h)$$
+
 $$y_t = \Phi(W_{hy} h_t + b_y)$$
 
 where
@@ -26,24 +28,34 @@ RNN needs to consider current input and previous hidden state for generating nex
 
 ## Linear RNN
 Linear RNNs are RNNs without nonlinearity
-$$h_t = Ah_{t-1} + Bx_t$$
-$$y_t = Ch_t$$
+
+$$
+\begin{aligned}
+ h_t &= Ah_{t-1} + Bx_t \\
+ y_t &= Ch_t
+\end{aligned}
+$$
 
 In detail
-$$h_0 = 0$$
-$$h_1 = Bx_1$$
-$$y_1 = Ch_1$$
-$$y_1 = CBx_1$$
-$$y_2 = CABx_1 + CBx_2$$
-$$y_3 = CA^2Bx_1 + CABx_2 + CBx_3$$
-$$y_t = CA^{t-1}Bx_1 + .......... + CBx_t$$
 
-$$K = (CB, CAB, ...CA^{t-1}B)$$
-
-$$y = K * x$$
+$$
+\begin{aligned}
+ h_0&= 0 \\
+ h_1 &= Bx_1 \\
+ y_1 &= Ch_1 \\
+ y_1 &= CBx_1 \\
+ y_2 &= CABx_1 + CBx_2 \\
+ y_3 &= CA^2Bx_1 + CABx_2 + CBx_3 \\
+ y_t &= CA^{t-1}Bx_1 + .......... + CBx_t \\
+ K &= (CB, CAB, ...CA^{t-1}B) \\
+ y &= K * x
+\end{aligned}
+$$
 
 Benefits:
 * Since convolution is parallelizable, training is fast.
+
+
 
 ## LSTM
 ## Transformers
