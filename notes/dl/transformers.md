@@ -44,7 +44,15 @@ where
 $$head_i = Attention(Q_iW^Q_i, K_iW^K_i, V_iW^V_i)$$
 
 ## Feed Forward Networks
+
+FFN introduces non-linearity in the transformer architecture and helps to learn more complex patterns.
+
+$$ FFN(x) = \phi(0,xW_1 + b)W_2 + b $$
+
 ## Auto regressive property
+
+To preserve auto-regressive property during training, leftward information flow is prevented by masking out those values prior to applying softmax.
+
 ## Complexity analysis
 
 * Compute complexity estimates how much MAC operations required to pcocess all T tokens.
@@ -62,8 +70,6 @@ $d:-$ hidden dim
 | Transformer Layer     | $\mathcal{O}(T^2)$ | $\mathcal{O}(T^2 \cdot d + T \cdot d^2)$ | $\mathcal{O}(T^2 + T \cdot d)$ |
 
 Attention weights can be computed in parallel (with equivalent of constant time complexity) because all tokens are already available during training. However, because inference is auto-regressive, attention weights of previously generated tokens must be recalculated everytime in order to construct a new token. With a time complexity of $\mathcal{O}(T)$, this limits the speed. This problem can be fixed by caching the created tokens' key and value vectors (KV caching), however doing so comes at a high memory cost.
+
 ## Reference
-
-
-
 * [Attention is all you need](https://arxiv.org/abs/1706.03762)
