@@ -6,7 +6,7 @@
 Recurrent neural networks (RNNs) are designed to handle sequential data by processing one timestep at a time, after capturing information from the previous timestep into a single vector called the hidden state. By the sequential nature of how the hidden state is processed, it can hold information from any of the previous timesteps.
 
 
-At time $t$ an RNN unit receives the current input $x_t$ and previous hidden state $h_{t-1}$ results in a new hidden state $h_t$ and output $y_t$.
+At time $t$ an RNN unit receives the current input $x_t$ and previous hidden state $h_{t-1}$ resulting in a new hidden state $h_t$ and output $y_t$.
 
 $$h_t = \Phi(W_{hh} h_{t-1} + W_{xh} x_t + b_h)$$
 
@@ -22,7 +22,7 @@ $y_t$ :- output predicited at time $t$
 
 $W$ :- Trainable weights
 
-An RNN only needs to consider the input and the previous hidden state for generating the next output. Thus computation scales only linearly with sequence length. However there are 2 significant issues with RNN.
+An RNN only needs to consider the current input and the previous hidden state for generating the current output. Thus computation scales only linearly with sequence length. However there are 2 significant issues with RNN.
 * Data must be processed sequentially, which drastically reduces the performance.
 * Longer sequences are prone to vanishing gradients, making it harder to learn long term dependencies.
 
