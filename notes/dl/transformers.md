@@ -8,10 +8,26 @@ Transformers are the core foundational components of popular LLMs such as GPT an
 
 Main components
 ## Embedding
+For a language modeling task, the input is a sequence of tokens. Embedding helps to construct D-dimensional representations of these tokens. Words that are related will be represented similarly in the embedding space. Embedding weight is a trainable parameter of shape (vocab_size, embedding_dim).
 ## Postional encoding
+
 ## Scaled Dot Product Attention
-### Self attention
-### Cross attention
+Attention is the transformer model's key mechanism for selectively and individually focusing on past tokens. Given query, key, and value matrices, attention is computed as follows:
+
+$$ Attention(Q, K, V) = {softmax({{QK^T} \over {\sqrt d_k}}) V}$$
+
+where
+
+$Q:$ Query - What the model is looking for.
+
+$K:$ Key - What each token offer.
+
+$V$ Value - content carried by each token.
+
+$d_k:$ dimensionlity of $K$
+
+When $Q = K = V$, it is called self attention, otherwise called cross attention. 
+
 ### Multi-head attention
 ## Feed Forward Networks
 ## Auto regressive property
