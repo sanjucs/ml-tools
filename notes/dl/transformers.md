@@ -26,9 +26,16 @@ $V$ Value - content carried by each token.
 
 $d_k:$ dimensionlity of $K$
 
-When $Q = K = V$, it is called self attention, otherwise called cross attention. 
+Steps:
+* Dot product $QK^T$ results a matrix of shape $(N, T, T)$ that measures similarity of each query token with all key tokens.
+* For numerical stability, the resultant term is scaled.
+* Softmax converts the result into a probability distribution range, which serves as an attention weight. The $t^{th}$ row of this matrix indicates how much attention token t should pay to other tokens.
+* Multiplication with $V$ matrix is equivaluent to creating output vector from weighted sum of $V$.
+
+When $Q = K = V$, it is called self attention, otherwise called cross attention.
 
 ### Multi-head attention
+
 ## Feed Forward Networks
 ## Auto regressive property
 ## Complexity analysis
