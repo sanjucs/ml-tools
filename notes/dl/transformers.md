@@ -55,21 +55,30 @@ To preserve auto-regressive property during training, leftward information flow 
 
 ## Complexity analysis
 
-* Compute complexity estimates how much MAC operations required to pcocess all T tokens.
-* Time complexity estimates how compute complexity scales as more tokens as added.
-* Memory complexity tracks memory reuirements in RAM.
+* Compute complexity correlates to the number of MAC operations required to pcocess all T tokens.
+* Time complexity estimates how long the system takes to compute the outputs. This can be measured in two ways
+    * Non-parallelized (NP): The time it takes if the all the computations are done using a single process.
+    * Parallelized (P): The time it takes if all independent computations are allowed to run on parallel processes. This is the key to understanding why transformers are faster, because GPUs are designed to run things parallelly.
+* Space complexity is indicative of the RAM requirements.
 
 $T:-$ Sequence length
 
 $d:-$ hidden dim
 
-| Component             | Time Complexity        | Compute Complexity         | Memory Complexity         |
-| --------------------- |------------------------| -------------------| --------------------------| 
-| Attention             | $\mathcal{O}(T^2)$ | $\mathcal{O}(T^2 \cdot d)$   | $\mathcal{O}(T^2)$          |
-| Feedforward Layer     | $\mathcal{O}(T)$ | $\mathcal{O}(T \cdot d^2)$   | $\mathcal{O}(T \cdot d)$     |
-| Transformer Layer     | $\mathcal{O}(T^2)$ | $\mathcal{O}(T^2 \cdot d + T \cdot d^2)$ | $\mathcal{O}(T^2 + T \cdot d)$ |
+| Component             | Time Complexity (NP)   | Time Complexity (P)   | Compute Complexity         | Space Complexity         |
+| --------------------- |------------------------| -------------------| --------------------------| --------------------------| 
+| Attention             | $\mathcal{O}(T^2)$ | $\mathcal{O}(1)$ | $\mathcal{O}(T^2 \cdot d)$   | $\mathcal{O}(T^2)$          |
+| Feedforward Layer     | $\mathcal{O}(T)$ | $\mathcal{O}(1)$ | $\mathcal{O}(T \cdot d^2)$   | $\mathcal{O}(T \cdot d)$     |
+| Transformer Layer     | $\mathcal{O}(T^2)$ | $\mathcal{O}(1)$ | $\mathcal{O}(T^2 \cdot d + T \cdot d^2)$ | $\mathcal{O}(T^2 + T \cdot d)$ |
+| RNN Layer             | $\mathcal{O}(T)$ | $\mathcal{O}(T)$ | $\mathcal{O}(T \cdot d)$ | $\mathcal{O}(T \cdot d)$ |
 
-Attention weights can be computed in parallel (with equivalent of constant time complexity) because all tokens are already available during training. However, because inference is auto-regressive, attention weights of previously generated tokens must be recalculated everytime in order to construct a new token. With a time complexity of $\mathcal{O}(T)$, this limits the speed. This problem can be fixed by caching the created tokens' key and value vectors (KV caching), however doing so comes at a high memory cost.
+Here "transformer layer" is just a combination ofr the "attention" and "feedforward layer". From the time-complexity analysis with the non-parallel approach, even though it looks like transformers require more compute, the key here is that all those processes are deliberately designed to be parallelized to make the compute highly efficient on GPUs. Therefore, transformers have an effective contant time-complexity, which basically means everything in a layer can be computed in the same speed regardless of the length of the sequence (Note that this is true only if there is infinite compute. In reality, we will still be bottlenecked by our hardware limits of how many processes we can run in parallel). Unlike transformers, RNNs were not designed with GPUs in mind. Therefore, even if there are plenty of cores to process parallel requests, it is impossible to process then parallelly in RNNs, since the next timestep can only be processes after the current timestep's computations have finished. This makes RNNs inefficient on GPUs.
+
+### Training phase
+For a sequence-to-sequence task during training, we have the input sequence and the target sequence ready. The whole of the input sequence can be passed through the encoder and be run parallely. The decoder however is auto-regressive, which basically means that the next timestep is conditioned on the previous prediction. This gives the impression that we need to wait for the processing to be done sequentially in the decoder. But the trick here is that during training, we know what we desire each timestep to predict. Instead of looping in the prediction from the previous timestep of the decoder, we can provide the true targets we desire from the previous timestep and remove the sequential requirements. This makes the processing in the decoders $\mathcal{O}(T^2)$ during training.
+
+### Inference phase
+Transformers shine on GPUs when we have everything ready to be processed. During inference, this is usually not the case since the ouput tokens are not ready and we generate them one-by-one (Next Token Prediction). Take the example of a machine translation task. We have the tokens of the source language eady to be processed. The encoder can be processed parallely, since all the information required to do parallel processing is ready. When it comes to the decoder, unlike during training, we only have the first token which is usually the $<SOS>$ token. Every new token has to be processed sequentially after the previous token has been generated. If done naively by processing everything in the decoder again, this would mean that for every new token we should do an $\mathcal{O}(T^2)$ computation. But if we cache the key and value vectors computed for the previous timesteps (which don't change since the decoder has causal attention), for every new token we only need to compute the $q$, $k$ and $v$ vectors for that particular timeframe and then do the attention operation. This technique is commonly called KV-caching. Even without parallel processing, for every new token this is only $\mathcal{O}(T)$, and with parallel processing it becomes $\mathcal{O}(1)$. Therefore for an average output sequence of length $T$, the time-complexity after parallelizations is $\mathcal{O}(T)$. Note that this is not better than RNNs in terms of speed, since RNNs can also do processing at the same speed during auto-regression. Unlike RNNs which only needs to hold a single vector for the previous hidden step, transformers need to hold all the previous $k$ and $v$ vectors which increases as the length of the decoding sequence increases. Therefore in terms of just time-complexity, transformers and RNNs are equivalent during a NAR decode with $\mathcal{O}(T)$ and in terms of space-complexity, RNNs require only $\mathcal{O}(d)$ while transformers need $\mathcal{O}(T \cdot d)$.
 
 ## Reference
 * [Attention is all you need](https://arxiv.org/abs/1706.03762)
